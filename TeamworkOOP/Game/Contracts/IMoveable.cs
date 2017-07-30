@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace Game.Contracts
 {
-    class Program
+   public interface IMoveable
     {
-        static void Main(string[] args)
-        {
-        }
     }
 }

@@ -42,6 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IMoveable.cs" />
+    <Compile Include="Contracts\IPrintable.cs" />
+    <Compile Include="Contracts\IRemoveable.cs" />
+    <Compile Include="Contracts\IShootable.cs" />
+    <Compile Include="Contracts\ISizeable.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="GameStart.cs" />
     <Compile Include="Player.cs" />
@@ -51,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
