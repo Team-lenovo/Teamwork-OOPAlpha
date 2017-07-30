@@ -49,6 +49,7 @@
     <Compile Include="Contracts\ISizeable.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="GameStart.cs" />
+    <Compile Include="GameStory.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
