@@ -8,5 +8,6 @@ namespace Game.Contracts
 {
    public interface IMoveable
     {
+        void Move();
     }
 }

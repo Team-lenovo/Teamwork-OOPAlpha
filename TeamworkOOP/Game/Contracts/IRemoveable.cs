@@ -8,5 +8,8 @@ namespace Game.Contracts
 {
     public interface IRemoveable
     {
+        void Destroy();
+        
+
     }
 }
