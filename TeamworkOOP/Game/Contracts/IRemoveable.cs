@@ -10,6 +10,5 @@ namespace Game.Contracts
     {
         void Destroy();
         
-
     }
 }

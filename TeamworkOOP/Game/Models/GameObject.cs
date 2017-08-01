@@ -7,19 +7,22 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public abstract class GameObject : IRemoveable, IMoveable
+    public abstract class GameObject : IRemoveable, IMoveable, IShootable
     {
         private Position position;
         private int health;
         private int lives;
         private string skin;
+        private Size size;
 
-        public GameObject(Position position, int health, int lives, string skin)
+        public GameObject(Position position, 
+            int health, int lives, string skin, Size size)
         {
             this.Position = position;
             this.Health = health;
             this.Lives = lives;
             this.Skin = skin;
+            this.Size = size;
         }
 
         public Position Position
@@ -45,6 +48,11 @@ namespace Game
             get { return this.skin; }
             set { this.skin = value; }
         }
+        public Size Size
+        {
+            get { return this.size; }
+            set { this.size = value; }
+        }
 
         public bool IsDestroyed { get; protected set; }
 
@@ -59,6 +67,11 @@ namespace Game
         }
 
         public void Move()
+        {
+
+        }
+
+        public void Shoot()
         {
 
         }
