@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,18 @@ namespace Game
             Console.SetCursorPosition(0, 0);
             Console.WriteLine($"Score: {player.Score} Position: X:{player.PlayerPosition.X} Y:{player.PlayerPosition.Y}");
         }
+        public static void  Print(Enemy enemy)
+        {
+            Console.CursorVisible = false;
+
+            
+            Console.SetCursorPosition(25, 25);
+            Console.WriteLine(enemy.Print());
+
+            Console.ForegroundColor = ConsoleColor.White;
+           
+         
+        }
 
 
         public static void Main()
@@ -31,8 +44,10 @@ namespace Game
             double speed = 200.0;
 
             Player player = new Player();
+            Enemy enemy = new Enemy();
 
             Console.SetCursorPosition((Console.WindowWidth - player.Skin.Length) / 2, Console.WindowHeight - 1);
+            Console.SetCursorPosition((Console.WindowWidth - 5) , Console.WindowHeight - 10);
 
             int i = 0;
 
@@ -41,6 +56,7 @@ namespace Game
                 Console.Clear();
 
                 Print(player);
+                Print(enemy);
                 player.Move();
                 player.Score++;
 

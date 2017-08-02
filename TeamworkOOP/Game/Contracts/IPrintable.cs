@@ -8,6 +8,6 @@ namespace Game.Contracts
 {
     public interface IPrintable
     {
-        void Print();
+        string Print();
     }
 }
