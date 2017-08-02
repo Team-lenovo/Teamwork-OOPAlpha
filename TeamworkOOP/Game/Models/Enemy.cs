@@ -32,5 +32,10 @@ namespace Game.Models
         {
             throw new NotImplementedException();
         }
+
+        //public IEnumerable<Enemy> CreateObjects()
+        //{
+        //    return new List<GameObject>();
+        //}
     }
 }

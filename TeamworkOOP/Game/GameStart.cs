@@ -25,8 +25,7 @@ namespace Game
         public static void  Print(Enemy enemy)
         {
             Console.CursorVisible = false;
-
-            
+                        
             Console.SetCursorPosition(25, 25);
             Console.WriteLine(enemy.Print());
 
