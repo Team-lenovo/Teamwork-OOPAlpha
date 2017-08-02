@@ -50,6 +50,8 @@
     <Compile Include="Example.cs" />
     <Compile Include="GameStart.cs" />
     <Compile Include="GameStory.cs" />
+    <Compile Include="Models\Boss.cs" />
+    <Compile Include="Models\Bullet.cs" />
     <Compile Include="Models\Enemy.cs" />
     <Compile Include="Models\GameObject.cs" />
     <Compile Include="Player.cs" />
