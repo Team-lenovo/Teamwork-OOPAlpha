@@ -27,7 +27,7 @@ namespace Game
         {
             //Console size
             Console.BufferHeight = Console.WindowHeight = 40;
-            Console.BufferWidth = Console.WindowWidth = 60;
+            Console.BufferWidth = Console.WindowWidth = 100;
             double speed = 200.0;
 
             Player player = new Player();
@@ -46,7 +46,7 @@ namespace Game
 
 
 
-                Thread.Sleep((int)(600 - speed)); //Refresh rate
+                Thread.Sleep((int)(100)); //Refresh rate
             }
         }
     }
