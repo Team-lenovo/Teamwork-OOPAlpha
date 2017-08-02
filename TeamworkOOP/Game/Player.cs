@@ -56,7 +56,7 @@ namespace Game
 
         public Player() : this(PlayerState.Default, WeaponChoice.Torpedo, ConsoleColor.Cyan, new Position((Console.WindowWidth - 3 /*skin.Length*/) / 2, Console.WindowHeight - 1), 3, 100, 0, 1000)
         {
-
+            
         }
 
         public Player(PlayerState state, WeaponChoice weapon, ConsoleColor color, Position playerPosition, int lives, int health, int score, int booletsLeft)
@@ -197,32 +197,17 @@ namespace Game
             while (Console.KeyAvailable)
             {
                 ConsoleKeyInfo pressedKey = Console.ReadKey(true);
-
-                if (pressedKey.Key == ConsoleKey.UpArrow)
-                {
-                    if (this.PlayerPosition.Y - 1 >= 0)
-                    {
-                        this.playerPosition.Y -= 1; //TODO: Fix property access
-                    }
-                }
-                else if (pressedKey.Key == ConsoleKey.DownArrow)
-                {
-                    if (this.PlayerPosition.Y + 1 < Console.WindowHeight - 1)
-                    {
-                        this.playerPosition.Y += 1;
-                    }
-                }
-
+                
                 if (pressedKey.Key == ConsoleKey.LeftArrow)
                 {
-                    if (this.PlayerPosition.X - 1 >= 0)
+                    if (this.PlayerPosition.X - 1 >= 1)
                     {
                         this.playerPosition.X -= 1; //TODO: Fix property access
                     }
                 }
                 else if (pressedKey.Key == ConsoleKey.RightArrow)
                 {
-                    if (this.PlayerPosition.X + 1 < Console.WindowWidth - 3)
+                    if (this.PlayerPosition.X + 1 < Console.WindowWidth - this.Skin.Length)
                     {
                         this.playerPosition.X += 1;
                     }
