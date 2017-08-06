@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Game.Models
+using AcademyInvaders.Models.Contracts;
+
+namespace AcademyInvaders.Models
 {
     public enum PlayerState
     {
@@ -23,16 +21,17 @@ namespace Game.Models
         Spread
     }
 
-    public class Player
+    [Serializable]
+    public class Player : IPrintable
     {
-        private string skin;            //Inherit from GameObject
+        private string skin;             //Inherit from GameObject
         private PlayerState state;
         private WeaponChoice weapon;
         private ConsoleColor color;
         private Position playerPosition; //Inherit from GameObject
 
-        private int lives;              //Inherit from GameObject
-        private int health;             //Inherit from GameObject
+        private int lives;               //Inherit from GameObject
+        private int health;              //Inherit from GameObject
         private int score;
         private int booletsLeft;
 
@@ -54,9 +53,8 @@ namespace Game.Models
             "|" //spread weapons |<^>| shoots \ /
         };
 
-        public Player() : this(PlayerState.Default, WeaponChoice.Torpedo, ConsoleColor.Cyan, new Position((Console.WindowWidth - 3 /*skin.Length*/) / 2, Console.WindowHeight - 1), 3, 100, 0, 1000)
+        public Player() : this(PlayerState.Default, WeaponChoice.Torpedo, ConsoleColor.Cyan, new Position((Console.WindowWidth - 4 /*skin.Length*/) / 2, Console.WindowHeight - 1), 3, 100, 0, 1000)
         {
-            
         }
 
         public Player(PlayerState state, WeaponChoice weapon, ConsoleColor color, Position playerPosition, int lives, int health, int score, int booletsLeft)
@@ -72,8 +70,7 @@ namespace Game.Models
             this.booletsLeft = booletsLeft;
         }
 
-
-        public string Skin          //inherit from GameObject
+        public string Skin          //Inherit from GameObject
         {
             get
             {
@@ -123,7 +120,7 @@ namespace Game.Models
             }
         }
 
-        public Position PlayerPosition      //Inherit from GameObject
+        public Position PlayerPosition //Inherit from GameObject
         {
             get
             {
@@ -135,8 +132,7 @@ namespace Game.Models
             }
         }
 
-
-        public int Lives                    //Inherit from GameObject
+        public int Lives              //Inherit from GameObject
         {
             get
             {
@@ -158,7 +154,7 @@ namespace Game.Models
             {
                 this.health = value;
             }
-        }               //Inherit from GameObject
+        }
 
         public int Score
         {
@@ -191,13 +187,12 @@ namespace Game.Models
             }
         }
 
-
         public void Move()
         {
             while (Console.KeyAvailable)
             {
                 ConsoleKeyInfo pressedKey = Console.ReadKey(true);
-                
+
                 if (pressedKey.Key == ConsoleKey.LeftArrow)
                 {
                     if (this.PlayerPosition.X - 1 >= 1)
@@ -207,13 +202,31 @@ namespace Game.Models
                 }
                 else if (pressedKey.Key == ConsoleKey.RightArrow)
                 {
-                    if (this.PlayerPosition.X + 1 < Console.WindowWidth - this.Skin.Length)
+                    if (this.PlayerPosition.X + 1 < Console.WindowWidth - this.ToString().Length)
                     {
                         this.playerPosition.X += 1;
                     }
                 }
             }
-        }           //Inherit from GameObject
+        }
+
+        public void MoveOnLine(int pressedKey)
+        {
+            if ((ConsoleKey)pressedKey == ConsoleKey.LeftArrow)
+            {
+                if (this.PlayerPosition.X - 1 >= 1)
+                {
+                    this.playerPosition.X -= 1;
+                }
+            }
+            else if ((ConsoleKey)pressedKey == ConsoleKey.RightArrow)
+            {
+                if (this.PlayerPosition.X + 1 < Console.WindowWidth - this.ToString().Length)
+                {
+                    this.playerPosition.X += 1;
+                }
+            }
+        }
 
         public override string ToString()
         {

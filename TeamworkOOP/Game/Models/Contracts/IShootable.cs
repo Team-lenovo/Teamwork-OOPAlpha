@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game.Contracts
+namespace AcademyInvaders.Models.Contracts
 {
-    public interface IPrintable
+    public interface IShootable
     {
-        string Print();
+        void Shoot();
     }
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Game.Abstractions;
+using AcademyInvaders.Models.Abstractions;
 
-namespace Game.Models
+namespace AcademyInvaders.Models
 {
     public class SinglePlayerMode : GameObject
     {

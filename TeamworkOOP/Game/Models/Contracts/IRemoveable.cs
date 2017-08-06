@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game.Contracts
+
+namespace AcademyInvaders.Models.Contracts
 {
-   public interface IMoveable
+    public interface IRemoveable
     {
-        void Move();
+        void Destroy();
+
     }
 }

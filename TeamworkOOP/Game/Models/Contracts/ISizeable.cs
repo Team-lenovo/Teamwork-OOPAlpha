@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game
+namespace AcademyInvaders.Models.Contracts
 {
-    class Screen
+    public interface ISizeable
     {
-
+        void Size();
     }
 }

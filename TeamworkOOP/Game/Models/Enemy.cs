@@ -1,17 +1,17 @@
-﻿using Game.Contracts;
+﻿using AcademyInvaders.Models.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game.Models
+namespace AcademyInvaders.Models
 {
-   public class Enemy : IMoveable, IPrintable, IRemoveable, IShootable
+    public class Enemy : IMoveable, IPrintable, IRemoveable, IShootable
     {
+        public Position PlayerPosition => throw new NotImplementedException();
 
-
-
+        public ConsoleColor Color => throw new NotImplementedException();
 
         public void Destroy()
         {

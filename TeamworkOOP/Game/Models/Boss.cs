@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game.Models
+namespace AcademyInvaders.Models
 {
-    class Boss
+    public class Boss
     {
     }
 }

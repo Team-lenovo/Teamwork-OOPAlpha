@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Game
+namespace AcademyInvaders.Models
 {
+    [Serializable]
     public struct Position
     {
         public Position(int x, int y)
@@ -16,5 +13,10 @@ namespace Game
 
         public int X { get; set; }
         public int Y { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format($"[X:{this.X} Y:{this.Y}]");
+        }
     }
 }

@@ -1,11 +1,12 @@
-﻿using Game.Contracts;
+﻿using AcademyInvaders.Models.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AcademyInvaders.Models;
 
-namespace Game.Abstractions
+namespace AcademyInvaders.Models.Abstractions
 {
     public abstract class GameObject : IRemoveable, IMoveable, IShootable
     {
