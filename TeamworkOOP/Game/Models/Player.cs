@@ -28,7 +28,7 @@ namespace AcademyInvaders.Models
         private PlayerState state;
         private WeaponChoice weapon;
         private ConsoleColor color;
-        private Position playerPosition; //Inherit from GameObject
+        public Position playerPosition; //Inherit from GameObject
 
         private int lives;               //Inherit from GameObject
         private int health;              //Inherit from GameObject
@@ -76,7 +76,7 @@ namespace AcademyInvaders.Models
             {
                 return this.skin;
             }
-            private set //Set by State, Wepons and Shielded
+            set //Set by State, Wepons and Shielded
             {
                 this.skin = value;
             }
