@@ -106,6 +106,9 @@ namespace AcademyInvaders.Core.Remote
             Player opponent = players[opponentName];
 
             NetworkStream ns = client.Client.GetStream();
+            List<IPrintable> pl = new List<IPrintable>();
+            pl.Add(onlinePlayer);
+            pl.Add(opponent);
             while (clientConnected)
             {
                 try
@@ -113,9 +116,6 @@ namespace AcademyInvaders.Core.Remote
                     // Online game start
                     onlinePlayer.Score++; // Test
 
-                    List<IPrintable> pl = new List<IPrintable>();
-                    pl.Add(onlinePlayer);
-                    pl.Add(opponent);
                     SendSerializedObject(client.Client, pl);
 
                     if (onlinePlayer.ShootedBullets.Count != 0)

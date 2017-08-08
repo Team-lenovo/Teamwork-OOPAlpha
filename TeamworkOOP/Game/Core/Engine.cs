@@ -18,7 +18,7 @@ namespace AcademyInvaders.Core
     {
         private static readonly IEngine instance = new Engine();
         private int gameSpeed;
-        private IList<IPrintable> gameObjects;
+        private List<IPrintable> gameObjects;
 
         public static IEngine Instance
         {
@@ -135,15 +135,15 @@ namespace AcademyInvaders.Core
                 //Console.WriteLine(serverData);
 
                 // Read GameObjects from server and print
-                List<IPrintable> list = ReceiveSerializedList(client);
-                Screen.PrintStats((Player)list[0], (Player)list[1]);
+                ReceiveSerializedList(client);
+                Screen.PrintStats((Player)gameObjects[0], (Player)gameObjects[1]);
 
                 // Mirror opponent
-                ((Player)list[1]).playerPosition.Y = 1;
-                ((Player)list[1]).Skin = "|<V>|";
-                Player currPlayer = (Player)list[0];
+                ((Player)gameObjects[1]).playerPosition.Y = 1;
+                ((Player)gameObjects[1]).Skin = "|<V>|";
+                Player currPlayer = (Player)gameObjects[0];
 
-                list.ForEach(Screen.PrintObject);
+                gameObjects.ForEach(Screen.PrintObject);
                 if (currPlayer.ShootedBullets.Count != 0)
                 {
                     for (int i = 0; i < currPlayer.ShootedBullets.Count; i++)
@@ -177,34 +177,18 @@ namespace AcademyInvaders.Core
 
             return result;
         }
-
-        public IPrintable ReceiveSerializedObejct(TcpClient client)
+        
+        public void ReceiveSerializedList(IClient client)
         {
-            IPrintable receivedObject;
-            NetworkStream ns = client.GetStream();
-            byte[] incommingBytes = new byte[2048];
-            ns.Read(incommingBytes, 0, 2048);
-            using (var ms = new MemoryStream(incommingBytes))
-            {
-                var formatter = new BinaryFormatter();
-                receivedObject = (IPrintable)formatter.Deserialize(ms);
-            }
-
-            return receivedObject;
-        }
-
-        public List<IPrintable> ReceiveSerializedList(IClient client)
-        {
-            List<IPrintable> list = null;
             try
             {
                 NetworkStream ns = client.Client.GetStream();
-                byte[] incommingBytes = new byte[12048];
-                ns.Read(incommingBytes, 0, 12048);
+                byte[] incommingBytes = new byte[4096];
+                ns.Read(incommingBytes, 0, 4096);
                 using (var ms = new MemoryStream(incommingBytes))
                 {
                     var formatter = new BinaryFormatter();
-                    list = (List<IPrintable>)formatter.Deserialize(ms);
+                    this.gameObjects = (List<IPrintable>)formatter.Deserialize(ms);
                 }
 
             }
@@ -222,8 +206,10 @@ namespace AcademyInvaders.Core
                     Environment.Exit(0);
                 }
             }
-
-            return list;
+            catch (Exception)
+            {
+                
+            }
         }
     }
 }
