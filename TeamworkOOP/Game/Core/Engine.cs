@@ -105,7 +105,7 @@ namespace AcademyInvaders.Core
                 {
                     for (int i = 0; i < offlinePlayer.ShootedBullets.Count; i++)
                     {
-                        if (offlinePlayer.ShootedBullets[i].ObjectPosition.Y==1)
+                        if (offlinePlayer.ShootedBullets[i].ObjectPosition.Y==0)
                         {
                             offlinePlayer.ShootedBullets.RemoveAt(i);
                         }

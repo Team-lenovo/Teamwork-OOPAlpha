@@ -80,7 +80,7 @@ namespace AcademyInvaders.Models
 
         public override void Move()
         {
-            if (objectPosition.Y!=1)
+            if (objectPosition.Y!=0)
             {
                 this.objectPosition.Y--;
             }
