@@ -42,7 +42,7 @@ namespace AcademyInvaders.Core
 
         public void Run()
         {
-            Screen.SetScreenSize(50, 135);
+            Screen.SetScreenSize(41, 120);
 
             //IntPtr hConsole = DllImports.GetStdHandle(-11);   // get console handle
             //DllImports.COORD xy = new DllImports.COORD(100, 100);
