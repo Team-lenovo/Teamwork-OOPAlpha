@@ -114,8 +114,6 @@ namespace AcademyInvaders.Core.Remote
                 try
                 {
                     // Online game start
-                    //onlinePlayer.Score++; // Test
-
                     SendSerializedObject(client.Client, pl);
 
                     if (onlinePlayer.ShootedBullets.Count != 0)
@@ -133,10 +131,19 @@ namespace AcademyInvaders.Core.Remote
                         }
                     }
 
+                    // Hit check ======================
+                    if (onlinePlayer.ShootedBullets.Any(b =>
+                    b.ObjectPosition.X >= opponent.playerPosition.X &&
+                    b.ObjectPosition.X <= opponent.playerPosition.X + opponent.ToString().Length - 1 &&
+                    opponent.playerPosition.Y == Console.WindowHeight - b.ObjectPosition.Y))
+                    {
+                        onlinePlayer.Score++;
+                        opponent.Health--;
+                    }
+
                     data = sReader.ReadLine();
                     onlinePlayer.MoveOnLine(int.Parse(data));
 
-                    //Console.WriteLine(client.PlayerName + ": " + data);
 
                     if (data == "terminate")
                     {
@@ -147,10 +154,7 @@ namespace AcademyInvaders.Core.Remote
                         client.Client.Close();
                         clientConnected = false;
                     }
-
-                    // to write something back
-                    //sWriter.WriteLine("server test data: " + ((i++) % 10));
-                    //sWriter.Flush();
+                    
                     Thread.Sleep(100); // TODO: Match game speed ========
                 }
                 catch (IOException)

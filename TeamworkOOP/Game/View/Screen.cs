@@ -32,7 +32,7 @@ namespace AcademyInvaders.View
             if (player2 != null)
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.SetCursorPosition(Console.WindowWidth - player2.Health - player2.Score - 6, 0);
+                Console.SetCursorPosition(Console.WindowWidth / 2 + 20, 0);
                 Console.WriteLine($"$:{player2.Score} H:{new string('#', player2.Health)}");
             }
         }

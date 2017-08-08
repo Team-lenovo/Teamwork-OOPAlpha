@@ -139,6 +139,20 @@ namespace AcademyInvaders.Core
                 ReceiveSerializedList(client);
                 currPlayer = (Player)gameObjects[0];
                 opponent = (Player)gameObjects[1];
+
+                // Game end -----------
+                if (opponent.Health == 0)
+                {
+                    GameStory.printGameComplete();
+                    break;
+                }
+                else if (currPlayer.Health == 0)
+                {
+                    GameStory.printGameOver();
+                    break;
+                }
+
+
                 Screen.PrintStats(currPlayer, (Player)gameObjects[1]);
 
                 currPlayer.ShootedBullets.ForEach(Screen.PrintObject);
