@@ -183,8 +183,8 @@ namespace AcademyInvaders.Core
             try
             {
                 NetworkStream ns = client.Client.GetStream();
-                byte[] incommingBytes = new byte[4096];
-                ns.Read(incommingBytes, 0, 4096);
+                byte[] incommingBytes = new byte[12000];
+                ns.Read(incommingBytes, 0, 12000);
                 using (var ms = new MemoryStream(incommingBytes))
                 {
                     var formatter = new BinaryFormatter();
@@ -208,7 +208,7 @@ namespace AcademyInvaders.Core
             }
             catch (Exception)
             {
-                
+                Console.WriteLine("Exception");
             }
         }
     }
