@@ -141,7 +141,7 @@ namespace AcademyInvaders.Core.Remote
                     // to write something back
                     //sWriter.WriteLine("server test data: " + ((i++) % 10));
                     //sWriter.Flush();
-                    Thread.Sleep(200); // TODO: Match game speed ========
+                    Thread.Sleep(100); // TODO: Match game speed ========
                 }
                 catch (IOException)
                 {

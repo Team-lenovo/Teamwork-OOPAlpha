@@ -40,8 +40,28 @@ namespace AcademyInvaders.Core
 
         public void Run()
         {
-            Screen.SetScreenSize(40, 100);
+            Screen.SetScreenSize(50, 100);
             Instance.GameSpeed = 200;
+
+            while (true)
+            {
+
+                GameStory.printTitle();
+                if (Console.KeyAvailable)
+                {
+                    break;
+                }
+                System.Threading.Thread.Sleep(1000);
+                Console.Clear();
+                GameStory.printTitle2();
+                if (Console.KeyAvailable)
+                {
+                    break;
+                }
+                System.Threading.Thread.Sleep(1000);
+                Console.Clear();
+            }
+            Console.Clear();
 
             int choice = Menu.Start();
             switch (choice)
@@ -77,7 +97,7 @@ namespace AcademyInvaders.Core
                 offlinePlayer.Move();
                 offlinePlayer.Score++; // Test ---------------
 
-                Thread.Sleep((int)(600 - Instance.GameSpeed));
+                Thread.Sleep((int)(100));
             }
         }
 
