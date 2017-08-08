@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace AcademyInvaders.Models
 {
+    [Serializable]
     public struct Size
     {
         public Size(int width, int height)

@@ -118,6 +118,21 @@ namespace AcademyInvaders.Core.Remote
                     pl.Add(opponent);
                     SendSerializedObject(client.Client, pl);
 
+                    if (onlinePlayer.ShootedBullets.Count != 0)
+                    {
+                        for (int i = 0; i < onlinePlayer.ShootedBullets.Count; i++)
+                        {
+                            if (onlinePlayer.ShootedBullets[i].ObjectPosition.Y == 0)
+                            {
+                                onlinePlayer.ShootedBullets.RemoveAt(i);
+                            }
+                            else
+                            {
+                                onlinePlayer.ShootedBullets[i].Move();
+                            }
+                        }
+                    }
+
                     data = sReader.ReadLine();
                     onlinePlayer.MoveOnLine(int.Parse(data));
 

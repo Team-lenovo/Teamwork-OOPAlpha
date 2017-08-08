@@ -9,24 +9,21 @@ using System.Threading.Tasks;
 
 namespace AcademyInvaders.Models
 {
-    public class Bullet : GameObject, IMoveable, IRemoveable, IPrintable
+    [Serializable]
+    public class Bullet : GameObject, IMoveable, IPrintable
     {
         private Position currPlayerPosition;
         private string playerName;
         private const int BulletHealth = 1;
         private Size BulletSize = new Size(1, 1);
         private Position objectPosition;
-
-
-
+        
         public Bullet(string playerName, Position currPlayerPosition, Size BulletSize) : base(currPlayerPosition, BulletHealth, BulletSize)
         {
             this.PlayerName = playerName;
             this.ObjectPosition = new Position(currPlayerPosition.X + 2, currPlayerPosition.Y - 1);
         }
-
-
-
+        
         public string PlayerName
         {
             get { return this.playerName; }
@@ -69,15 +66,7 @@ namespace AcademyInvaders.Models
             }
 
         }
-
-        public override void Destroy()
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-
+        
         public override void Move()
         {
             if (objectPosition.Y!=0)

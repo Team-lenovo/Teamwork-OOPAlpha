@@ -27,11 +27,6 @@ namespace AcademyInvaders.Models
             }
         }
 
-        public override void Destroy()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Move()
         {
             throw new NotImplementedException();

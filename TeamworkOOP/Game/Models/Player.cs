@@ -205,12 +205,8 @@ namespace AcademyInvaders.Models
                 }
                 else if (pressedKey.Key == ConsoleKey.Spacebar)
                 {
-
-
                     Bullet newBullet = new Bullet(this.GetHashCode().ToString(), this.ObjectPosition, new Size(1, 1));
                     ShootedBullets.Add(newBullet);
-
-
                 }
             }
         }
@@ -230,6 +226,11 @@ namespace AcademyInvaders.Models
                 {
                     this.playerPosition.X += 1;
                 }
+            }
+            else if ((ConsoleKey)pressedKey == ConsoleKey.Spacebar)
+            {
+                Bullet newBullet = new Bullet(this.GetHashCode().ToString(), this.ObjectPosition, new Size(1, 1));
+                ShootedBullets.Add(newBullet);
             }
         }
 

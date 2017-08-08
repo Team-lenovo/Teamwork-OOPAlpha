@@ -98,9 +98,7 @@ namespace AcademyInvaders.Core
             {
                 Console.Clear();
                 Console.CursorVisible = false;
-
-
-               
+                
                 if (offlinePlayer.ShootedBullets.Count != 0)
                 {
                     for (int i = 0; i < offlinePlayer.ShootedBullets.Count; i++)
@@ -114,12 +112,11 @@ namespace AcademyInvaders.Core
                             Screen.PrintObject(offlinePlayer.ShootedBullets[i]);
                             offlinePlayer.ShootedBullets[i].Move();
                         }
-                        
                     }
-
                 }
                 Screen.PrintObject(offlinePlayer);
                 Screen.PrintStats(offlinePlayer);
+
 
                 offlinePlayer.Move();
                 offlinePlayer.Score++; // Test ---------------
@@ -144,8 +141,23 @@ namespace AcademyInvaders.Core
                 // Mirror opponent
                 ((Player)list[1]).playerPosition.Y = 1;
                 ((Player)list[1]).Skin = "|<V>|";
+                Player currPlayer = (Player)list[0];
 
                 list.ForEach(Screen.PrintObject);
+                if (currPlayer.ShootedBullets.Count != 0)
+                {
+                    for (int i = 0; i < currPlayer.ShootedBullets.Count; i++)
+                    {
+                        if (currPlayer.ShootedBullets[i].ObjectPosition.Y == 0)
+                        {
+                            currPlayer.ShootedBullets.RemoveAt(i);
+                        }
+                        else
+                        {
+                            Screen.PrintObject(currPlayer.ShootedBullets[i]);
+                        }
+                    }
+                }
 
                 int pressedKey = ReadPressedKey();
                 client.SendData(pressedKey.ToString());
@@ -187,8 +199,8 @@ namespace AcademyInvaders.Core
             try
             {
                 NetworkStream ns = client.Client.GetStream();
-                byte[] incommingBytes = new byte[2048];
-                ns.Read(incommingBytes, 0, 2048);
+                byte[] incommingBytes = new byte[12048];
+                ns.Read(incommingBytes, 0, 12048);
                 using (var ms = new MemoryStream(incommingBytes))
                 {
                     var formatter = new BinaryFormatter();

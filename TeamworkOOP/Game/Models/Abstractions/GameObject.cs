@@ -8,7 +8,8 @@ using AcademyInvaders.Models;
 
 namespace AcademyInvaders.Models.Abstractions
 {
-    public abstract class GameObject : IRemoveable, IMoveable
+    [Serializable]
+    public abstract class GameObject : IMoveable
     {
         private Position position;
         private int health;             
@@ -35,8 +36,6 @@ namespace AcademyInvaders.Models.Abstractions
 
         public bool IsDestroyed { get; protected set; }
         public abstract int Health { get; protected set; }
-
-        public abstract void Destroy();
 
         public abstract void Move();
 
