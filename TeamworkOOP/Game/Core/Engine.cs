@@ -40,7 +40,7 @@ namespace AcademyInvaders.Core
 
         public void Run()
         {
-            Screen.SetScreenSize(50, 100);
+            Screen.SetScreenSize(45, 120);
             Instance.GameSpeed = 200;
 
             while (true)
@@ -63,7 +63,10 @@ namespace AcademyInvaders.Core
             }
             Console.Clear();
 
-            int choice = Menu.Start();
+            GameStory.printMenu();
+
+            int choice = int.Parse(Console.ReadLine());
+
             switch (choice)
             {
                 case 1:

@@ -52,7 +52,6 @@
     <Compile Include="Core\Contracts\IServer.cs" />
     <Compile Include="Core\Contracts\IUser.cs" />
     <Compile Include="Core\Engine.cs" />
-    <Compile Include="Core\Menu.cs" />
     <Compile Include="Core\Providers\GameDB.cs" />
     <Compile Include="Core\Remote\Administrator.cs" />
     <Compile Include="Core\Remote\DefaultUser.cs" />
