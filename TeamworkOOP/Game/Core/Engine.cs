@@ -162,7 +162,7 @@ namespace AcademyInvaders.Core
                 int pressedKey = ReadPressedKey();
                 client.SendData(pressedKey.ToString());
 
-                Thread.Sleep((int)(600 - Instance.GameSpeed));
+                Thread.Sleep((int)(300 - Instance.GameSpeed));
             }
         }
 
