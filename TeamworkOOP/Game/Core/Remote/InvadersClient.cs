@@ -80,21 +80,6 @@ namespace AcademyInvaders.Remote
                     this.sWriter.Flush();
                     // Connection confirmation from server
                     Console.WriteLine(this.sReader.ReadLine());
-
-                    // Initial communication with server
-                    string incoming = "";
-                    while (true)
-                    {
-                        incoming = sReader.ReadLine();
-                        Console.WriteLine(incoming);
-                        if (incoming == "over")
-                        {
-                            break;
-                        }
-                        sWriter.WriteLine(Console.ReadLine());
-                        sWriter.Flush();
-                    }
-                    break;
                 }
                 catch (Exception)
                 {

@@ -12,6 +12,7 @@ using AcademyInvaders.Models;
 using AcademyInvaders.Models.Contracts;
 using AcademyInvaders.Remote;
 using AcademyInvaders.Utils;
+using System.Linq;
 
 namespace AcademyInvaders.Core.Remote
 {
@@ -30,7 +31,6 @@ namespace AcademyInvaders.Core.Remote
 
         // Auto name opponent =============
         private Dictionary<string, Player> players = new Dictionary<string, Player>();
-        private int playerNumber = 0;
         // ==========================================================
 
 
@@ -69,8 +69,8 @@ namespace AcademyInvaders.Core.Remote
                 // wait for client connection
                 InvadersClient newPClient = new InvadersClient();
                 newPClient.Client = server.AcceptTcpClient();
-                newPClient.PlayerName = "P" + this.playerNumber++; //TODO: use PlayerAuthentication
-                newPClient.ClientPlayer = new Player(); //TODO: load game
+                newPClient.PlayerName = newPClient.GetHashCode().ToString();
+                newPClient.ClientPlayer = new Player();
                 this.players.Add(newPClient.PlayerName, newPClient.ClientPlayer);
 
                 // client found & create a thread to handle communication
@@ -100,12 +100,7 @@ namespace AcademyInvaders.Core.Remote
             // Player authentication
             //string playerName = PlayerAuthentication(client);
 
-            string opponentName = this.ChooseOpponent(client.Client);
-
-            // Initial  communication's end
-            sWriter.WriteLine("over");
-            sWriter.Flush();
-
+            string opponentName = this.ChooseOpponent(client);
 
             Player onlinePlayer = client.ClientPlayer;
             Player opponent = players[opponentName];
@@ -171,21 +166,19 @@ namespace AcademyInvaders.Core.Remote
             return playerName;
         }
 
-        public string ChooseOpponent(TcpClient client)
+        public string ChooseOpponent(InvadersClient client)
         {
             string opponentName = "";
-            StreamReader sReader = new StreamReader(client.GetStream());
-            StreamWriter sWriter = new StreamWriter(client.GetStream());
+            string currentPlayer = client.PlayerName;
 
-            while (true)
+            while (opponentName == "")
             {
-                sWriter.WriteLine($"Choose your opponent: {string.Join(" | ", this.players.Keys)}. Press 'Enter' to refresh.");
-                sWriter.Flush();
-                opponentName = sReader.ReadLine();
-                if (opponentName.Length > 1)
+                if (this.players.Count < 2)
                 {
-                    break;
+                    Thread.Sleep(1000);
+                    continue;
                 }
+                opponentName = this.players.Where(p => p.Key != currentPlayer).First().Key;
             }
 
             return opponentName.ToUpper();
