@@ -176,6 +176,8 @@ namespace AcademyInvaders.Core.Remote
                 if (this.players.Count < 2)
                 {
                     Thread.Sleep(1000);
+                    Console.Clear();
+                    Console.WriteLine("Waiting for second player...");
                     continue;
                 }
                 opponentName = this.players.Where(p => p.Key != currentPlayer).First().Key;
