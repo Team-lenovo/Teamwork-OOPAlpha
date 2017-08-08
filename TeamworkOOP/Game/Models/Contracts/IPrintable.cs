@@ -4,7 +4,7 @@ namespace AcademyInvaders.Models.Contracts
 {
     public interface IPrintable
     {
-        Position PlayerPosition { get; }
+        Position ObjectPosition { get; }
 
         ConsoleColor Color { get; }
     }

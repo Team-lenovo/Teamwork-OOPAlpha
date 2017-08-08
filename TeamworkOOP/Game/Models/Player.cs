@@ -1,6 +1,8 @@
 ﻿using System;
 
 using AcademyInvaders.Models.Contracts;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace AcademyInvaders.Models
 {
@@ -24,6 +26,7 @@ namespace AcademyInvaders.Models
     [Serializable]
     public class Player : IPrintable
     {
+        private IList<Bullet> shootedBullets;
         private string skin;             //Inherit from GameObject
         private PlayerState state;
         private WeaponChoice weapon;
@@ -33,7 +36,6 @@ namespace AcademyInvaders.Models
         private int lives;               //Inherit from GameObject
         private int health;              //Inherit from GameObject
         private int score;
-        private int booletsLeft;
 
         //private bool shielded; //Collision with states
 
@@ -53,21 +55,22 @@ namespace AcademyInvaders.Models
             "|" //spread weapons |<^>| shoots \ /
         };
 
-        public Player() : this(PlayerState.Default, WeaponChoice.Torpedo, ConsoleColor.Cyan, new Position((Console.WindowWidth - 4 /*skin.Length*/) / 2, Console.WindowHeight - 1), 3, 100, 0, 1000)
+        public Player() : this(PlayerState.Default, WeaponChoice.Torpedo, ConsoleColor.Cyan, new Position((Console.WindowWidth - 4 /*skin.Length*/) / 2, Console.WindowHeight - 1), 3, 100, 0)
         {
         }
 
-        public Player(PlayerState state, WeaponChoice weapon, ConsoleColor color, Position playerPosition, int lives, int health, int score, int booletsLeft)
+        public Player(PlayerState state, WeaponChoice weapon, ConsoleColor color, Position playerPosition, int lives, int health, int score)
         {
+
             this.State = state;
             this.Weapon = weapon;
             this.Color = color;
-            this.PlayerPosition = playerPosition;
+            this.ObjectPosition = playerPosition;
 
             this.Lives = lives;
             this.Health = health;
             this.Score = score;
-            this.booletsLeft = booletsLeft;
+
         }
 
         public string Skin          //Inherit from GameObject
@@ -120,7 +123,7 @@ namespace AcademyInvaders.Models
             }
         }
 
-        public Position PlayerPosition //Inherit from GameObject
+        public Position ObjectPosition //Inherit from GameObject
         {
             get
             {
@@ -168,24 +171,7 @@ namespace AcademyInvaders.Models
             }
         }
 
-        public int BooletsLeft
-        {
-            get
-            {
-                return this.booletsLeft;
-            }
-            set
-            {
-                if (value < 1)
-                {
-                    this.booletsLeft = 0;
-                }
-                else
-                {
-                    this.booletsLeft = value;
-                }
-            }
-        }
+
 
         public void Move()
         {
@@ -195,17 +181,26 @@ namespace AcademyInvaders.Models
 
                 if (pressedKey.Key == ConsoleKey.LeftArrow)
                 {
-                    if (this.PlayerPosition.X - 1 >= 1)
+                    if (this.ObjectPosition.X - 1 >= 1)
                     {
                         this.playerPosition.X -= 1; //TODO: Fix property access
                     }
                 }
                 else if (pressedKey.Key == ConsoleKey.RightArrow)
                 {
-                    if (this.PlayerPosition.X + 1 < Console.WindowWidth - this.ToString().Length)
+                    if (this.ObjectPosition.X + 1 < Console.WindowWidth - this.ToString().Length)
                     {
                         this.playerPosition.X += 1;
                     }
+                }
+                else if (pressedKey.Key == ConsoleKey.Spacebar)
+                {
+
+
+                    Bullet newBullet = new Bullet(this.GetHashCode().ToString(), this.ObjectPosition, new Size(1, 1));
+
+
+
                 }
             }
         }
@@ -214,14 +209,14 @@ namespace AcademyInvaders.Models
         {
             if ((ConsoleKey)pressedKey == ConsoleKey.LeftArrow)
             {
-                if (this.PlayerPosition.X - 1 >= 1)
+                if (this.ObjectPosition.X - 1 >= 1)
                 {
                     this.playerPosition.X -= 1;
                 }
             }
             else if ((ConsoleKey)pressedKey == ConsoleKey.RightArrow)
             {
-                if (this.PlayerPosition.X + 1 < Console.WindowWidth - this.ToString().Length)
+                if (this.ObjectPosition.X + 1 < Console.WindowWidth - this.ToString().Length)
                 {
                     this.playerPosition.X += 1;
                 }

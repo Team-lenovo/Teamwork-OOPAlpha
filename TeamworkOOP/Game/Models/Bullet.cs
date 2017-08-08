@@ -1,4 +1,5 @@
-﻿using AcademyInvaders.Models.Contracts;
+﻿using AcademyInvaders.Models.Abstractions;
+using AcademyInvaders.Models.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,30 @@ using System.Threading.Tasks;
 
 namespace AcademyInvaders.Models
 {
-    public class Bullet : IMoveable,IRemoveable, IPrintable
+    public class Bullet : GameObject, IMoveable, IRemoveable, IPrintable
     {
-        private  Position position;
-        
-        public Bullet(Position position)
+        private Position currPlayerPosition;
+        private string playerName;
+        private const int BulletHealth = 1;
+        private Size BulletSize = new Size(1, 1);
+        private Position objectPosition;
+
+
+
+        public Bullet(string playerName, Position currPlayerPosition, Size BulletSize) : base(currPlayerPosition, BulletHealth, BulletSize)
         {
-            this.Position = PlayerPosition;
+            this.PlayerName = playerName;
+            this.ObjectPosition = currPlayerPosition;
+            this.Move();
+            
+        }
+
+        
+
+        public string PlayerName
+        {
+            get { return this.playerName; }
+            set { this.playerName = value; }
         }
 
         public ConsoleColor Color
@@ -24,53 +42,56 @@ namespace AcademyInvaders.Models
             }
         }
 
-        public Position PlayerPosition
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public override int Health { get; protected set; }
 
-        public Position Position
+
+        public Position ObjectPosition
         {
             get
             {
-                return this.position;
-                
+                return this.objectPosition;
             }
             set
             {
-                this.position = value;
+                this.objectPosition = value;
             }
-           
         }
-        
-        public void Destroy()
+
+        public Position CurrPlayerPosition
+        {
+            get
+            {
+                return this.currPlayerPosition;
+
+            }
+            set
+            {
+                this.currPlayerPosition = value;
+            }
+
+        }
+
+        public override void Destroy()
         {
             throw new NotImplementedException();
         }
 
-        public  void Move()
+
+
+
+        public override void Move()
         {
-            while (Console.KeyAvailable)
+            while (this.ObjectPosition.Y>0)
             {
-                ConsoleKeyInfo pressedKey = Console.ReadKey(true);
+                this.objectPosition.Y--;
 
-                if (pressedKey.Key == ConsoleKey.Spacebar)
-                {
-
-
-                    this.Position=PlayerPosition;
-                    
-                    
-                }
-                  
             }
         }
 
+        public override string ToString()
+        {
+            return "*";
+        }
 
-
-        
     }
 }

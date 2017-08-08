@@ -17,7 +17,7 @@ namespace AcademyInvaders.Models
             }
         }
 
-        public Position PlayerPosition
+        public Position ObjectPosition
         {
             get
             {

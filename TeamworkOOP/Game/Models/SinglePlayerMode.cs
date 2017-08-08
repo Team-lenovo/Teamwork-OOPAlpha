@@ -37,9 +37,6 @@ namespace AcademyInvaders.Models
             throw new NotImplementedException();
         }
 
-        public override void Shoot()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

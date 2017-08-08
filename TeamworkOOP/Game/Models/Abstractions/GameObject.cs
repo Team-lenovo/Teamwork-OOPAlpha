@@ -8,7 +8,7 @@ using AcademyInvaders.Models;
 
 namespace AcademyInvaders.Models.Abstractions
 {
-    public abstract class GameObject : IRemoveable, IMoveable, IShootable
+    public abstract class GameObject : IRemoveable, IMoveable
     {
         private Position position;
         private int health;             
@@ -40,7 +40,7 @@ namespace AcademyInvaders.Models.Abstractions
 
         public abstract void Move();
 
-        public abstract void Shoot();
+       
         
         
     }
