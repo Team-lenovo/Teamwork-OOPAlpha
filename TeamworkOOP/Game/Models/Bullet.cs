@@ -1,5 +1,6 @@
 ﻿using AcademyInvaders.Models.Abstractions;
 using AcademyInvaders.Models.Contracts;
+using AcademyInvaders.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,10 @@ namespace AcademyInvaders.Models
         public Bullet(string playerName, Position currPlayerPosition, Size BulletSize) : base(currPlayerPosition, BulletHealth, BulletSize)
         {
             this.PlayerName = playerName;
-            this.ObjectPosition = currPlayerPosition;
-            this.Move();
-            
+            this.ObjectPosition = new Position(currPlayerPosition.X + 2, currPlayerPosition.Y - 1);
         }
 
-        
+
 
         public string PlayerName
         {
@@ -81,10 +80,9 @@ namespace AcademyInvaders.Models
 
         public override void Move()
         {
-            while (this.ObjectPosition.Y>0)
+            if (objectPosition.Y!=1)
             {
                 this.objectPosition.Y--;
-
             }
         }
 
@@ -92,6 +90,5 @@ namespace AcademyInvaders.Models
         {
             return "*";
         }
-
     }
 }

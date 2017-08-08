@@ -10,7 +10,6 @@ namespace AcademyInvaders.Utils
     // https://gist.github.com/lsauer/3741940
     public class ConsoleWindowSet
     {
-        
         /// <summary>
         /// Contains native methods imported as unmanaged code.
         /// </summary>
@@ -27,16 +26,11 @@ namespace AcademyInvaders.Utils
                     this.X = x;
                     this.Y = y;
                 }
-
             }
             [DllImport("kernel32.dll")]
             public static extern IntPtr GetStdHandle(int handle);
             [DllImport("kernel32.dll", SetLastError = true)]
-            public static extern bool SetConsoleDisplayMode(
-                IntPtr ConsoleOutput
-                , uint Flags
-                , out COORD NewScreenBufferDimensions
-                );
+            public static extern bool SetConsoleDisplayMode(IntPtr ConsoleOutput, uint Flags, out COORD NewScreenBufferDimensions);
 
             internal static void SetConsoleDisplayMode(IntPtr hConsole, int v)
             {

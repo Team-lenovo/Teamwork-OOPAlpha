@@ -18,6 +18,7 @@ namespace AcademyInvaders.Core
     {
         private static readonly IEngine instance = new Engine();
         private int gameSpeed;
+        private IList<IPrintable> gameObjects;
 
         public static IEngine Instance
         {
@@ -41,11 +42,11 @@ namespace AcademyInvaders.Core
 
         public void Run()
         {
-            //Screen.SetScreenSize(50, 135);
+            Screen.SetScreenSize(50, 135);
 
-            IntPtr hConsole = DllImports.GetStdHandle(-11);   // get console handle
-            DllImports.COORD xy = new DllImports.COORD(100, 100);
-            DllImports.SetConsoleDisplayMode(hConsole, 1, out xy); // set the console to fullscreen
+            //IntPtr hConsole = DllImports.GetStdHandle(-11);   // get console handle
+            //DllImports.COORD xy = new DllImports.COORD(100, 100);
+            //DllImports.SetConsoleDisplayMode(hConsole, 1, out xy); // set the console to fullscreen
             Instance.GameSpeed = 200;
 
             while (true)
@@ -98,8 +99,28 @@ namespace AcademyInvaders.Core
                 Console.Clear();
                 Console.CursorVisible = false;
 
+
+               
+                if (offlinePlayer.ShootedBullets.Count != 0)
+                {
+                    for (int i = 0; i < offlinePlayer.ShootedBullets.Count; i++)
+                    {
+                        if (offlinePlayer.ShootedBullets[i].ObjectPosition.Y==1)
+                        {
+                            offlinePlayer.ShootedBullets.RemoveAt(i);
+                        }
+                        else
+                        {
+                            Screen.PrintObject(offlinePlayer.ShootedBullets[i]);
+                            offlinePlayer.ShootedBullets[i].Move();
+                        }
+                        
+                    }
+
+                }
                 Screen.PrintObject(offlinePlayer);
                 Screen.PrintStats(offlinePlayer);
+
                 offlinePlayer.Move();
                 offlinePlayer.Score++; // Test ---------------
 
@@ -122,7 +143,7 @@ namespace AcademyInvaders.Core
 
                 // Mirror opponent
                 ((Player)list[1]).playerPosition.Y = 1;
-                ((Player)list[1]).Skin="|<V>|";
+                ((Player)list[1]).Skin = "|<V>|";
 
                 list.ForEach(Screen.PrintObject);
 

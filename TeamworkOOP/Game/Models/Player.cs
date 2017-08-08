@@ -1,7 +1,6 @@
 ﻿using System;
 
 using AcademyInvaders.Models.Contracts;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace AcademyInvaders.Models
@@ -66,7 +65,7 @@ namespace AcademyInvaders.Models
             this.Weapon = weapon;
             this.Color = color;
             this.ObjectPosition = playerPosition;
-
+            this.ShootedBullets = new List<Bullet>();
             this.Lives = lives;
             this.Health = health;
             this.Score = score;
@@ -171,6 +170,17 @@ namespace AcademyInvaders.Models
             }
         }
 
+        public IList<Bullet> ShootedBullets
+        {
+            get
+            {
+                return this.shootedBullets;
+            }
+            set
+            {
+                this.shootedBullets = value;
+            }
+        }
 
 
         public void Move()
@@ -198,7 +208,7 @@ namespace AcademyInvaders.Models
 
 
                     Bullet newBullet = new Bullet(this.GetHashCode().ToString(), this.ObjectPosition, new Size(1, 1));
-
+                    ShootedBullets.Add(newBullet);
 
 
                 }
