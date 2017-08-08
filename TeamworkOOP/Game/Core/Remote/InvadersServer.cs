@@ -114,7 +114,7 @@ namespace AcademyInvaders.Core.Remote
                 try
                 {
                     // Online game start
-                    onlinePlayer.Score++; // Test
+                    //onlinePlayer.Score++; // Test
 
                     SendSerializedObject(client.Client, pl);
 

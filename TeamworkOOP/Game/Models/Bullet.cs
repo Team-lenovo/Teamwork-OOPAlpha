@@ -16,7 +16,7 @@ namespace AcademyInvaders.Models
         private string playerName;
         private const int BulletHealth = 1;
         private Size BulletSize = new Size(1, 1);
-        private Position objectPosition;
+        public Position objectPosition;
         
         public Bullet(string playerName, Position currPlayerPosition, Size BulletSize) : base(currPlayerPosition, BulletHealth, BulletSize)
         {

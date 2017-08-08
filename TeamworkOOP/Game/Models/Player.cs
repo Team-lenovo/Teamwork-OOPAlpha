@@ -25,7 +25,7 @@ namespace AcademyInvaders.Models
     [Serializable]
     public class Player : IPrintable
     {
-        private IList<Bullet> shootedBullets;
+        private List<Bullet> shootedBullets;
         private string skin;             //Inherit from GameObject
         private PlayerState state;
         private WeaponChoice weapon;
@@ -54,7 +54,7 @@ namespace AcademyInvaders.Models
             "|" //spread weapons |<^>| shoots \ /
         };
 
-        public Player() : this(PlayerState.Default, WeaponChoice.Torpedo, ConsoleColor.Cyan, new Position((Console.WindowWidth - 4 /*skin.Length*/) / 2, Console.WindowHeight - 1), 3, 100, 0)
+        public Player() : this(PlayerState.Default, WeaponChoice.Torpedo, ConsoleColor.Cyan, new Position((Console.WindowWidth - 4 /*skin.Length*/) / 2, Console.WindowHeight - 1), 3, 30, 0)
         {
         }
 
@@ -170,7 +170,7 @@ namespace AcademyInvaders.Models
             }
         }
 
-        public IList<Bullet> ShootedBullets
+        public List<Bullet> ShootedBullets
         {
             get
             {

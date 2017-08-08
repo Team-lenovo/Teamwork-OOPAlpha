@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
+using System.Linq;
 
 using AcademyInvaders.Core.Contracts;
 using AcademyInvaders.Models;
@@ -57,14 +58,14 @@ namespace AcademyInvaders.Core
                 {
                     break;
                 }
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 Console.Clear();
                 GameStory.printTitle2();
                 if (Console.KeyAvailable)
                 {
                     break;
                 }
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 Console.Clear();
             }
             Console.Clear();
@@ -98,12 +99,12 @@ namespace AcademyInvaders.Core
             {
                 Console.Clear();
                 Console.CursorVisible = false;
-                
+
                 if (offlinePlayer.ShootedBullets.Count != 0)
                 {
                     for (int i = 0; i < offlinePlayer.ShootedBullets.Count; i++)
                     {
-                        if (offlinePlayer.ShootedBullets[i].ObjectPosition.Y==0)
+                        if (offlinePlayer.ShootedBullets[i].ObjectPosition.Y == 0)
                         {
                             offlinePlayer.ShootedBullets.RemoveAt(i);
                         }
@@ -119,7 +120,7 @@ namespace AcademyInvaders.Core
 
 
                 offlinePlayer.Move();
-                offlinePlayer.Score++; // Test ---------------
+                //offlinePlayer.Score++; // Test ---------------
 
                 Thread.Sleep((int)(100));
             }
@@ -127,37 +128,31 @@ namespace AcademyInvaders.Core
 
         public void PlayOnline(IClient client)
         {
+            Player currPlayer;
+            Player opponent;
             while (true)
             {
                 Console.Clear();
                 Console.CursorVisible = false;
-                //string serverData = client.ReadServerData();
-                //Console.WriteLine(serverData);
 
                 // Read GameObjects from server and print
                 ReceiveSerializedList(client);
-                Screen.PrintStats((Player)gameObjects[0], (Player)gameObjects[1]);
+                currPlayer = (Player)gameObjects[0];
+                opponent = (Player)gameObjects[1];
+                Screen.PrintStats(currPlayer, (Player)gameObjects[1]);
 
+                currPlayer.ShootedBullets.ForEach(Screen.PrintObject);
                 // Mirror opponent
-                ((Player)gameObjects[1]).playerPosition.Y = 1;
-                ((Player)gameObjects[1]).Skin = "|<V>|";
-                Player currPlayer = (Player)gameObjects[0];
-
-                gameObjects.ForEach(Screen.PrintObject);
-                if (currPlayer.ShootedBullets.Count != 0)
+                opponent.Skin = "|<V>|";
+                opponent.playerPosition.Y = 1;
+                opponent.ShootedBullets.ForEach(b =>
                 {
-                    for (int i = 0; i < currPlayer.ShootedBullets.Count; i++)
-                    {
-                        if (currPlayer.ShootedBullets[i].ObjectPosition.Y == 0)
-                        {
-                            currPlayer.ShootedBullets.RemoveAt(i);
-                        }
-                        else
-                        {
-                            Screen.PrintObject(currPlayer.ShootedBullets[i]);
-                        }
-                    }
-                }
+                    b.objectPosition.Y = Console.WindowHeight - b.objectPosition.Y - 1;
+                    Screen.PrintObject(b);
+                });
+
+
+                this.gameObjects.ForEach(Screen.PrintObject);
 
                 int pressedKey = ReadPressedKey();
                 client.SendData(pressedKey.ToString());
@@ -177,7 +172,7 @@ namespace AcademyInvaders.Core
 
             return result;
         }
-        
+
         public void ReceiveSerializedList(IClient client)
         {
             try
