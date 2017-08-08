@@ -10,6 +10,7 @@ using AcademyInvaders.Models;
 using AcademyInvaders.Models.Contracts;
 using AcademyInvaders.Remote;
 using AcademyInvaders.View;
+using static AcademyInvaders.Utils.ConsoleWindowSet;
 
 namespace AcademyInvaders.Core
 {
@@ -40,7 +41,12 @@ namespace AcademyInvaders.Core
 
         public void Run()
         {
-            Screen.SetScreenSize(45, 120);
+            //Screen.SetScreenSize(50, 135);
+
+            IntPtr hConsole = DllImports.GetStdHandle(-11);   // get console handle
+            DllImports.COORD xy = new DllImports.COORD(100, 100);
+            DllImports.SetConsoleDisplayMode(hConsole, 1, out xy); // set the console to fullscreen
+
             Instance.GameSpeed = 200;
 
             while (true)
