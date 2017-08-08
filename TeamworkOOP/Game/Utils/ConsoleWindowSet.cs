@@ -37,6 +37,11 @@ namespace AcademyInvaders.Utils
                 , uint Flags
                 , out COORD NewScreenBufferDimensions
                 );
+
+            internal static void SetConsoleDisplayMode(IntPtr hConsole, int v)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

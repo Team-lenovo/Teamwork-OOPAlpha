@@ -46,7 +46,6 @@ namespace AcademyInvaders.Core
             IntPtr hConsole = DllImports.GetStdHandle(-11);   // get console handle
             DllImports.COORD xy = new DllImports.COORD(100, 100);
             DllImports.SetConsoleDisplayMode(hConsole, 1, out xy); // set the console to fullscreen
-
             Instance.GameSpeed = 200;
 
             while (true)
@@ -80,14 +79,12 @@ namespace AcademyInvaders.Core
                     Instance.PlayOffline(offlinePlayer);
                     break;
                 case 2:
-                case 3:
                     IClient client = new InvadersClient();
                     client.ConnectClient();
                     Instance.PlayOnline(client);
                     break;
-                case 4:
-                    Console.WriteLine("Only in paid version!");
-                    Thread.Sleep(1000);
+                case 3:
+                    Environment.Exit(0);
                     return;
                 default:
                     break;
