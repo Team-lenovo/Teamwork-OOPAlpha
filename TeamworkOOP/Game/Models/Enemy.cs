@@ -9,9 +9,25 @@ namespace AcademyInvaders.Models
 {
     public class Enemy : IMoveable, IPrintable, IRemoveable, IShootable
     {
-        public Position PlayerPosition => throw new NotImplementedException();
+        public ConsoleColor Color
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
-        public ConsoleColor Color => throw new NotImplementedException();
+        public Position PlayerPosition
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        //public Position PlayerPosition => throw new NotImplementedException();
+
+        //public ConsoleColor Color => throw new NotImplementedException();
 
         public void Destroy()
         {

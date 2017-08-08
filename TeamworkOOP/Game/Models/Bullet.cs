@@ -7,25 +7,70 @@ using System.Threading.Tasks;
 
 namespace AcademyInvaders.Models
 {
-    public class Bullet : IMoveable, IPrintable, IRemoveable
+    public class Bullet : IMoveable,IRemoveable, IPrintable
     {
-        public Position PlayerPosition => throw new NotImplementedException();
+        private  Position position;
+        
+        public Bullet(Position position)
+        {
+            this.Position = PlayerPosition;
+        }
 
-        public ConsoleColor Color => throw new NotImplementedException();
+        public ConsoleColor Color
+        {
+            get
+            {
+                return ConsoleColor.Red;
+            }
+        }
 
+        public Position PlayerPosition
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Position Position
+        {
+            get
+            {
+                return this.position;
+                
+            }
+            set
+            {
+                this.position = value;
+            }
+           
+        }
+        
         public void Destroy()
         {
             throw new NotImplementedException();
         }
 
-        public void Move()
+        public  void Move()
         {
-            throw new NotImplementedException();
+            while (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo pressedKey = Console.ReadKey(true);
+
+                if (pressedKey.Key == ConsoleKey.Spacebar)
+                {
+
+
+                    this.Position=PlayerPosition;
+                    
+                    
+                }
+                  
+            }
         }
 
-        public string Print()
-        {
-            return "*";
-        }
+
+
+        
     }
 }
