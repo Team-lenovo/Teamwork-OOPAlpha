@@ -3,8 +3,11 @@
 namespace AcademyInvaders.Models
 {
     [Serializable]
-    public struct Position
+    public class Position
     {
+        public Position() : this(0, 0)
+        {
+        }
         public Position(int x, int y)
         {
             this.X = x;

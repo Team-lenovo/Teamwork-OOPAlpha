@@ -58,9 +58,9 @@ namespace AcademyInvaders
 
         public static void printLevelStory(int level)
         {
-            string introLevel = (@"..\..\Core\Resources\levels\00.introLevel.txt");
-            string firstLevelCompleted = (@"..\..\Core\Resources\levels\01.firstLevelCompleted.txt");
-            string secondLevelCompleted = (@"..\..\Core\Resources\levels\02.secondLevelCompleted.txt");
+            string introLevel = (@"..\..\Core\Resources\level\00.introLevel.txt");
+            string firstLevelCompleted = (@"..\..\Core\Resources\level\01.firstLevelCompleted.txt");
+            string secondLevelCompleted = (@"..\..\Core\Resources\level\02.secondLevelCompleted.txt");
             switch (level)
             {
                 case 0:

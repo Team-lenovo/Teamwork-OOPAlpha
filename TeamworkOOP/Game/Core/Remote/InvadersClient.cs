@@ -8,6 +8,7 @@ using AcademyInvaders.Core.Contracts;
 using AcademyInvaders.Core.Remote;
 using AcademyInvaders.Models;
 using AcademyInvaders.Utils;
+using AcademyInvaders.Models.Contracts;
 
 namespace AcademyInvaders.Remote
 {
@@ -19,7 +20,7 @@ namespace AcademyInvaders.Remote
         private StreamReader sReader;
         private StreamWriter sWriter;
 
-        private Player clientPlayer;
+        private IPlayer clientPlayer;
         private string playerName;
 
         public InvadersClient()
@@ -41,7 +42,7 @@ namespace AcademyInvaders.Remote
             }
         }
 
-        public Player ClientPlayer
+        public IPlayer ClientPlayer
         {
             get
             {

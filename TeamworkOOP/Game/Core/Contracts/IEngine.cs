@@ -1,4 +1,5 @@
 ﻿using AcademyInvaders.Models;
+using AcademyInvaders.Models.Contracts;
 
 namespace AcademyInvaders.Core.Contracts
 {
@@ -8,7 +9,7 @@ namespace AcademyInvaders.Core.Contracts
 
         int GameSpeed { get; set; }
 
-        void PlayOffline(Player offlinePlayer);
+        void PlayOffline(IPlayer offlinePlayer);
 
         void PlayOnline(IClient client);
     }

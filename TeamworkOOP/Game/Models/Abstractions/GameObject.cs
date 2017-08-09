@@ -11,8 +11,7 @@ namespace AcademyInvaders.Models.Abstractions
     [Serializable]
     public abstract class GameObject : IMoveable
     {
-        private Position position;
-        private int health;             
+        private Position position;         
         private Size size;
 
         public GameObject(Position position, int health, Size size)
@@ -34,8 +33,8 @@ namespace AcademyInvaders.Models.Abstractions
             set { this.size = value; }
         }
 
-        public bool IsDestroyed { get; protected set; }
-        public abstract int Health { get; protected set; }
+        public bool IsDestroyed { get; set; }
+        public abstract int Health { get; set; }
 
         public abstract void Move();
 

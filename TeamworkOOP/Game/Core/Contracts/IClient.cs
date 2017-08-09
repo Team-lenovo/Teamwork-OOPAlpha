@@ -1,14 +1,17 @@
 ﻿using System.Net.Sockets;
 
 using AcademyInvaders.Models;
+using AcademyInvaders.Models.Contracts;
 
 namespace AcademyInvaders.Core.Contracts
 {
     public interface IClient
     {
-        TcpClient Client { get; }
+        TcpClient Client { get; set; }
 
-        Player ClientPlayer { get; set; }
+        IPlayer ClientPlayer { get; set; }
+
+        string PlayerName{ get; set; }
 
         void ConnectClient();
 

@@ -11,7 +11,7 @@ using AcademyInvaders.Models;
 using AcademyInvaders.Models.Contracts;
 using AcademyInvaders.Remote;
 using AcademyInvaders.View;
-using static AcademyInvaders.Utils.ConsoleWindowSet;
+using AcademyInvaders.Core.Factories;
 
 namespace AcademyInvaders.Core
 {
@@ -44,15 +44,10 @@ namespace AcademyInvaders.Core
         public void Run()
         {
             Screen.SetScreenSize(41, 120);
-
-            //IntPtr hConsole = DllImports.GetStdHandle(-11);   // get console handle
-            //DllImports.COORD xy = new DllImports.COORD(100, 100);
-            //DllImports.SetConsoleDisplayMode(hConsole, 1, out xy); // set the console to fullscreen
             Instance.GameSpeed = 200;
 
             while (true)
             {
-
                 GameStory.printTitle();
                 if (Console.KeyAvailable)
                 {
@@ -77,11 +72,11 @@ namespace AcademyInvaders.Core
             switch (choice)
             {
                 case 1:
-                    Player offlinePlayer = new Player();
+                    IPlayer offlinePlayer = InvadersFactory.Instance.CreatePlayer();
                     Instance.PlayOffline(offlinePlayer);
                     break;
                 case 2:
-                    IClient client = new InvadersClient();
+                    IClient client = InvadersFactory.Instance.CreateInvadersClient();
                     client.ConnectClient();
                     Instance.PlayOnline(client);
                     break;
@@ -93,7 +88,7 @@ namespace AcademyInvaders.Core
             }
         }
 
-        public void PlayOffline(Player offlinePlayer)
+        public void PlayOffline(IPlayer offlinePlayer)
         {
             while (true)
             {
@@ -128,8 +123,8 @@ namespace AcademyInvaders.Core
 
         public void PlayOnline(IClient client)
         {
-            Player currPlayer;
-            Player opponent;
+            IPlayer currPlayer;
+            IPlayer opponent;
             while (true)
             {
                 Console.Clear();
@@ -137,8 +132,8 @@ namespace AcademyInvaders.Core
 
                 // Read GameObjects from server and print
                 ReceiveSerializedList(client);
-                currPlayer = (Player)gameObjects[0];
-                opponent = (Player)gameObjects[1];
+                currPlayer = (IPlayer)gameObjects[0];
+                opponent = (IPlayer)gameObjects[1];
 
                 // Game end -----------
                 if (opponent.Health == 0)
@@ -155,13 +150,13 @@ namespace AcademyInvaders.Core
 
                 Screen.PrintStats(currPlayer, (Player)gameObjects[1]);
 
-                currPlayer.ShootedBullets.ForEach(Screen.PrintObject);
+                currPlayer.ShootedBullets.ToList().ForEach(Screen.PrintObject);
                 // Mirror opponent
                 opponent.Skin = "|<V>|";
-                opponent.playerPosition.Y = 1;
-                opponent.ShootedBullets.ForEach(b =>
+                opponent.ObjectPosition.Y = 1;
+                opponent.ShootedBullets.ToList().ForEach(b =>
                 {
-                    b.objectPosition.Y = Console.WindowHeight - b.objectPosition.Y - 1;
+                    b.ObjectPosition.Y = Console.WindowHeight - b.ObjectPosition.Y - 1;
                     Screen.PrintObject(b);
                 });
 
@@ -199,7 +194,6 @@ namespace AcademyInvaders.Core
                     var formatter = new BinaryFormatter();
                     this.gameObjects = (List<IPrintable>)formatter.Deserialize(ms);
                 }
-
             }
             catch (IOException)
             {
@@ -208,7 +202,7 @@ namespace AcademyInvaders.Core
                 string choice = Console.ReadLine().ToLower();
                 if (choice == "y")
                 {
-                    Instance.PlayOffline(new Player());
+                    Instance.PlayOffline(InvadersFactory.Instance.CreatePlayer());
                 }
                 else
                 {

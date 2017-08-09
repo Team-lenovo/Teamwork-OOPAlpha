@@ -21,7 +21,7 @@ namespace AcademyInvaders.Models
                 throw new NotImplementedException();
             }
 
-            protected set
+            set
             {
                 throw new NotImplementedException();
             }

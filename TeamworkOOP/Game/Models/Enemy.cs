@@ -1,21 +1,18 @@
 ﻿using AcademyInvaders.Models.Abstractions;
 using AcademyInvaders.Models.Contracts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AcademyInvaders.Models
 {
-    public class Enemy :GameObject, IMoveable, IPrintable, IRemoveable, IShootable
+    public class Enemy : GameObject, IMoveable, IPrintable, IRemoveable, IShootable, ISizeable, IEnemy
     {
         private ConsoleColor color;
         private Position objectPosition;
+        private int health;
 
-        public Enemy(Position position, int health, Size size) : base(position, health, size)
+        public Enemy(Position position, int health, Size size, ConsoleColor color) : base(position, health, size)
         {
-            
+            this.Color = color;
         }
 
         public ConsoleColor Color
@@ -24,7 +21,10 @@ namespace AcademyInvaders.Models
             {
                 return ConsoleColor.Cyan;
             }
-            
+            set
+            {
+                this.color = value;
+            }
         }
 
         public override int Health
@@ -34,9 +34,9 @@ namespace AcademyInvaders.Models
                 return 2;
             }
 
-            protected set
+            set
             {
-                this.Health = value;
+                this.health = value;
             }
         }
 
@@ -52,7 +52,7 @@ namespace AcademyInvaders.Models
             }
         }
 
-        
+
 
         public void Destroy()
         {
@@ -64,14 +64,19 @@ namespace AcademyInvaders.Models
             throw new NotImplementedException();
         }
 
-        
 
-        public string  Print()
+
+        public string Print()
         {
             return "@@@@@";
         }
 
         public void Shoot()
+        {
+            throw new NotImplementedException();
+        }
+
+        void ISizeable.Size()
         {
             throw new NotImplementedException();
         }

@@ -23,9 +23,9 @@ namespace AcademyInvaders.Models
     }
 
     [Serializable]
-    public class Player : IPrintable
+    public class Player : IPlayer, IPrintable
     {
-        private List<Bullet> shootedBullets;
+        private IList<IBullet> shootedBullets;
         private string skin;             //Inherit from GameObject
         private PlayerState state;
         private WeaponChoice weapon;
@@ -54,9 +54,9 @@ namespace AcademyInvaders.Models
             "|" //spread weapons |<^>| shoots \ /
         };
 
-        public Player() : this(PlayerState.Default, WeaponChoice.Torpedo, ConsoleColor.Cyan, new Position((Console.WindowWidth - 4 /*skin.Length*/) / 2, Console.WindowHeight - 1), 3, 30, 0)
-        {
-        }
+        //public Player() : this(PlayerState.Default, WeaponChoice.Torpedo, ConsoleColor.Cyan, new Position((Console.WindowWidth - 4) / 2, Console.WindowHeight - 1), 3, 30, 0)
+        //{
+        //}
 
         public Player(PlayerState state, WeaponChoice weapon, ConsoleColor color, Position playerPosition, int lives, int health, int score)
         {
@@ -65,7 +65,7 @@ namespace AcademyInvaders.Models
             this.Weapon = weapon;
             this.Color = color;
             this.ObjectPosition = playerPosition;
-            this.ShootedBullets = new List<Bullet>();
+            this.ShootedBullets = new List<IBullet>();
             this.Lives = lives;
             this.Health = health;
             this.Score = score;
@@ -170,7 +170,7 @@ namespace AcademyInvaders.Models
             }
         }
 
-        public List<Bullet> ShootedBullets
+        public IList<IBullet> ShootedBullets
         {
             get
             {
@@ -205,7 +205,9 @@ namespace AcademyInvaders.Models
                 }
                 else if (pressedKey.Key == ConsoleKey.Spacebar)
                 {
-                    Bullet newBullet = new Bullet(this.GetHashCode().ToString(), this.ObjectPosition, new Size(1, 1));
+                    Position startBulletPosition = new Position() { X = this.ObjectPosition.X, Y = this.ObjectPosition.Y };
+                    IBullet newBullet = new Bullet(this.GetHashCode().ToString(), startBulletPosition, new Size(1, 1));
+                    //Here must be created by factory
                     ShootedBullets.Add(newBullet);
                 }
             }
@@ -229,7 +231,9 @@ namespace AcademyInvaders.Models
             }
             else if ((ConsoleKey)pressedKey == ConsoleKey.Spacebar)
             {
-                Bullet newBullet = new Bullet(this.GetHashCode().ToString(), this.ObjectPosition, new Size(1, 1));
+                Position startBulletPosition = new Position() { X = this.ObjectPosition.X, Y = this.ObjectPosition.Y }; 
+                IBullet newBullet = new Bullet(this.GetHashCode().ToString(), startBulletPosition, new Size(1, 1));
+                //Here must be created by factory
                 ShootedBullets.Add(newBullet);
             }
         }

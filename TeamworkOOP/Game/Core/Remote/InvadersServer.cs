@@ -7,12 +7,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 
 using AcademyInvaders.Core.Contracts;
-using AcademyInvaders.Core.Providers;
 using AcademyInvaders.Models;
 using AcademyInvaders.Models.Contracts;
 using AcademyInvaders.Remote;
 using AcademyInvaders.Utils;
 using System.Linq;
+using AcademyInvaders.Core.Factories;
 
 namespace AcademyInvaders.Core.Remote
 {
@@ -27,10 +27,9 @@ namespace AcademyInvaders.Core.Remote
 
         // Game logic ================================================
         private readonly Dictionary<string, TcpClient> clients;
-        private readonly Dictionary<Tuple<string, string>, Player> users; //Load game
 
         // Auto name opponent =============
-        private Dictionary<string, Player> players = new Dictionary<string, Player>();
+        private Dictionary<string, IPlayer> players = new Dictionary<string, IPlayer>();
         // ==========================================================
 
 
@@ -40,7 +39,6 @@ namespace AcademyInvaders.Core.Remote
             this.port = int.Parse(InvadersIO.ReadSettings("port"));
             this.server = new TcpListener(this.ip, port);
             this.clients = new Dictionary<string, TcpClient>();
-            this.users = GameDB.Instance.Users;
         }
 
         public static IServer Instance
@@ -67,10 +65,10 @@ namespace AcademyInvaders.Core.Remote
                 Console.WriteLine("Waiting for connection...");
 
                 // wait for client connection
-                InvadersClient newPClient = new InvadersClient();
+                IClient newPClient = InvadersFactory.Instance.CreateInvadersClient();
                 newPClient.Client = server.AcceptTcpClient();
                 newPClient.PlayerName = newPClient.GetHashCode().ToString();
-                newPClient.ClientPlayer = new Player();
+                newPClient.ClientPlayer = InvadersFactory.Instance.CreatePlayer();
                 this.players.Add(newPClient.PlayerName, newPClient.ClientPlayer);
 
                 // client found & create a thread to handle communication
@@ -82,7 +80,7 @@ namespace AcademyInvaders.Core.Remote
         public void HandleClient(object obj)
         {
             // retrieve client from parameter passed to thread
-            InvadersClient client = (InvadersClient)obj;
+            IClient client = (IClient)obj;
             StreamWriter sWriter = new StreamWriter(client.Client.GetStream());
             StreamReader sReader = new StreamReader(client.Client.GetStream());
             bool clientConnected = true;
@@ -102,8 +100,8 @@ namespace AcademyInvaders.Core.Remote
 
             string opponentName = this.ChooseOpponent(client);
 
-            Player onlinePlayer = client.ClientPlayer;
-            Player opponent = players[opponentName];
+            IPlayer onlinePlayer = client.ClientPlayer;
+            IPlayer opponent = players[opponentName];
 
             NetworkStream ns = client.Client.GetStream();
             List<IPrintable> pl = new List<IPrintable>();
@@ -133,9 +131,9 @@ namespace AcademyInvaders.Core.Remote
 
                     // Hit check ======================
                     if (onlinePlayer.ShootedBullets.Any(b =>
-                    b.ObjectPosition.X >= opponent.playerPosition.X &&
-                    b.ObjectPosition.X <= opponent.playerPosition.X + opponent.ToString().Length - 1 &&
-                    opponent.playerPosition.Y == Console.WindowHeight - b.ObjectPosition.Y))
+                    b.ObjectPosition.X >= opponent.ObjectPosition.X &&
+                    b.ObjectPosition.X <= opponent.ObjectPosition.X + opponent.ToString().Length - 1 &&
+                    opponent.ObjectPosition.Y == Console.WindowHeight - b.ObjectPosition.Y))
                     {
                         onlinePlayer.Score++;
                         opponent.Health--;
@@ -154,7 +152,7 @@ namespace AcademyInvaders.Core.Remote
                         client.Client.Close();
                         clientConnected = false;
                     }
-                    
+
                     Thread.Sleep(100); // TODO: Match game speed ========
                 }
                 catch (IOException)
@@ -185,7 +183,7 @@ namespace AcademyInvaders.Core.Remote
             return playerName;
         }
 
-        public string ChooseOpponent(InvadersClient client)
+        public string ChooseOpponent(IClient client)
         {
             string opponentName = "";
             string currentPlayer = client.PlayerName;

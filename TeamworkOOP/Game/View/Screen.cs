@@ -1,6 +1,5 @@
 ﻿using System;
 
-using AcademyInvaders.Models;
 using AcademyInvaders.Models.Contracts;
 
 namespace AcademyInvaders.View
@@ -23,7 +22,7 @@ namespace AcademyInvaders.View
             Console.Write(obj);
         }
 
-        public static void PrintStats(Player player1, Player player2 = null)
+        public static void PrintStats(IPlayer player1, IPlayer player2 = null)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(0, 0);

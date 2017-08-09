@@ -43,35 +43,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Contracts\IInvadersFactory.cs" />
+    <Compile Include="Models\Contracts\IEnemy.cs" />
+    <Compile Include="Core\Factories\InvadersFactory.cs" />
+    <Compile Include="Models\Contracts\IPlayer.cs" />
     <Compile Include="Models\Contracts\IMoveable.cs" />
     <Compile Include="Models\Contracts\IRemoveable.cs" />
     <Compile Include="Models\Contracts\IShootable.cs" />
     <Compile Include="Models\Contracts\ISizeable.cs" />
     <Compile Include="Core\Contracts\IClient.cs" />
     <Compile Include="Core\Contracts\IEngine.cs" />
-    <Compile Include="Core\Contracts\IGameDB.cs" />
     <Compile Include="Core\Contracts\IServer.cs" />
-    <Compile Include="Core\Contracts\IUser.cs" />
     <Compile Include="Core\Engine.cs" />
-    <Compile Include="Core\Providers\GameDB.cs" />
-    <Compile Include="Core\Remote\Administrator.cs" />
-    <Compile Include="Core\Remote\DefaultUser.cs" />
     <Compile Include="Core\Remote\InvadersClient.cs" />
     <Compile Include="Core\Remote\InvadersServer.cs" />
-    <Compile Include="Core\Remote\User.cs" />
     <Compile Include="GameStory.cs" />
     <Compile Include="Models\Boss.cs" />
     <Compile Include="Models\Bullet.cs" />
     <Compile Include="Models\Contracts\IPrintable.cs" />
     <Compile Include="Models\Enemy.cs" />
     <Compile Include="Models\Abstractions\GameObject.cs" />
+    <Compile Include="Models\Contracts\IBullet.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\SinglePlayerMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Size.cs" />
     <Compile Include="StartUp.cs" />
-    <Compile Include="Utils\ConsoleWindowSet.cs" />
     <Compile Include="Utils\InvadersIO.cs" />
     <Compile Include="View\Screen.cs" />
   </ItemGroup>
@@ -83,10 +81,10 @@
     <Content Include="Core\Resources\bigVikWinsAgain.txt" />
     <Content Include="Core\Resources\gameComplete.txt" />
     <Content Include="Core\Resources\gameOver.txt" />
-    <Content Include="Core\Resources\levels\00.introLevel.txt" />
-    <Content Include="Core\Resources\levels\01.firstLevelCompleted.txt" />
-    <Content Include="Core\Resources\levels\02.secondLevelCompleted.txt" />
     <Content Include="Core\Resources\menu.txt" />
+    <Content Include="Core\Resources\level\00.introLevel.txt" />
+    <Content Include="Core\Resources\level\01.firstLevelCompleted.txt" />
+    <Content Include="Core\Resources\level\02.secondLevelCompleted.txt" />
     <Content Include="Core\Resources\title.txt" />
     <Content Include="Core\Resources\title2.txt" />
     <Content Include="Core\Settings.txt" />

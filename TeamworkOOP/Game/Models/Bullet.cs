@@ -10,35 +10,30 @@ using System.Threading.Tasks;
 namespace AcademyInvaders.Models
 {
     [Serializable]
-    public class Bullet : GameObject, IMoveable, IPrintable
+    public class Bullet : GameObject, IMoveable, IPrintable, IBullet
     {
-        private Position currPlayerPosition;
+        //private Position currPlayerPosition;
         private string playerName;
         private const int BulletHealth = 1;
         private Size BulletSize = new Size(1, 1);
         public Position objectPosition;
-        
-        public Bullet(string playerName, Position currPlayerPosition, Size BulletSize) : base(currPlayerPosition, BulletHealth, BulletSize)
+
+        public Bullet(string playerName, Position currPlayerPosition, Size BulletSize, ConsoleColor color = ConsoleColor.Red) : base(currPlayerPosition, BulletHealth, BulletSize)
         {
             this.PlayerName = playerName;
             this.ObjectPosition = new Position(currPlayerPosition.X + 2, currPlayerPosition.Y - 1);
+            this.Color = color;
         }
-        
+
         public string PlayerName
         {
             get { return this.playerName; }
             set { this.playerName = value; }
         }
 
-        public ConsoleColor Color
-        {
-            get
-            {
-                return ConsoleColor.Red;
-            }
-        }
+        public ConsoleColor Color { get; set; }
 
-        public override int Health { get; protected set; }
+        public override int Health { get; set; }
 
 
         public Position ObjectPosition
@@ -53,23 +48,9 @@ namespace AcademyInvaders.Models
             }
         }
 
-        public Position CurrPlayerPosition
-        {
-            get
-            {
-                return this.currPlayerPosition;
-
-            }
-            set
-            {
-                this.currPlayerPosition = value;
-            }
-
-        }
-        
         public override void Move()
         {
-            if (objectPosition.Y!=0)
+            if (objectPosition.Y != 0)
             {
                 this.objectPosition.Y--;
             }
