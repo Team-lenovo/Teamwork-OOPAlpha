@@ -79,10 +79,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Core\Resources\alphaInvaders.txt" />
+    <Content Include="Core\Resources\bigVikWinsAgain.txt" />
+    <Content Include="Core\Resources\gameComplete.txt" />
+    <Content Include="Core\Resources\gameOver.txt" />
+    <Content Include="Core\Resources\levels\00.introLevel.txt" />
+    <Content Include="Core\Resources\levels\01.firstLevelCompleted.txt" />
+    <Content Include="Core\Resources\levels\02.secondLevelCompleted.txt" />
+    <Content Include="Core\Resources\menu.txt" />
+    <Content Include="Core\Resources\title.txt" />
+    <Content Include="Core\Resources\title2.txt" />
     <Content Include="Core\Settings.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

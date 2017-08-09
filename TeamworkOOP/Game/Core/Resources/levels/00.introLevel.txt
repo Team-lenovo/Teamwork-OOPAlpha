@@ -1,0 +1,14 @@
+Dark times have fallen upon the Telerik Alpha Academy...
+
+Evil alien invaders have attacked the academy and taken hold of it! They
+have also taken hostage the trainers as well as the students of the academy.
+
+Unfortunately, the invaders have programmed their warships to instantly attack
+anybody who tries to enter the academy grounds.
+
+Using your awesome programming skills, you have managed to breach their
+system's security and steal one of their flagships. Now, the only thing you
+have to do is navigate the ship and destroy the capital ship of the aliens
+in order to free the academy of this vicious enemy.
+
+Good luck!
