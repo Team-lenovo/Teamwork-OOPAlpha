@@ -12,9 +12,9 @@ namespace AcademyInvaders.Models.Abstractions
     public abstract class GameObject : IMoveable
     {
         private Position position;         
-        private Size size;
+        private Size? size;
 
-        public GameObject(Position position, int health, Size size)
+        public GameObject(Position position, int health, Size? size)
         {
             this.Position = position;
             this.Health = health;
@@ -27,7 +27,7 @@ namespace AcademyInvaders.Models.Abstractions
             set { this.position = value; }
         }
         
-        public Size Size
+        public Size? Size
         {
             get { return this.size; }
             set { this.size = value; }

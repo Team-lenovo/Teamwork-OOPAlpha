@@ -10,9 +10,12 @@ namespace AcademyInvaders.Models
         private Position objectPosition;
         private int health;
 
-        public Enemy(Position position, int health, Size size, ConsoleColor color) : base(position, health, size)
+        public Enemy(Position position, int health, Size? size, ConsoleColor color, int randomX) : base(position, health, size)
         {
+            this.ObjectPosition = position;
+            this.Size = size;
             this.Color = color;
+            this.ObjectPosition.X = randomX;
         }
 
         public ConsoleColor Color
@@ -51,24 +54,16 @@ namespace AcademyInvaders.Models
                 this.objectPosition = value;
             }
         }
-
-
-
+        
         public void Destroy()
         {
-            throw new NotImplementedException();
+
         }
 
         public override void Move()
         {
-            throw new NotImplementedException();
-        }
 
-
-
-        public string Print()
-        {
-            return "@@@@@";
+            this.ObjectPosition.Y++;
         }
 
         public void Shoot()
@@ -85,5 +80,10 @@ namespace AcademyInvaders.Models
         //{
         //    return new List<GameObject>();
         //}
+
+        public override string ToString()
+        {
+            return "@@@@@";
+        }
     }
 }

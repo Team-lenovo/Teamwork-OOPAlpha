@@ -9,7 +9,6 @@ using System.Linq;
 using AcademyInvaders.Core.Contracts;
 using AcademyInvaders.Models;
 using AcademyInvaders.Models.Contracts;
-using AcademyInvaders.Remote;
 using AcademyInvaders.View;
 using AcademyInvaders.Core.Factories;
 
@@ -19,13 +18,25 @@ namespace AcademyInvaders.Core
     {
         private static readonly IEngine instance = new Engine();
         private int gameSpeed;
-        private List<IPrintable> gameObjects;
+        private List<IPrintable> gameObjects = new List<IPrintable>();
 
         public static IEngine Instance
         {
             get
             {
                 return instance;
+            }
+        }
+
+        public List<IPrintable> GameObjects
+        {
+            get
+            {
+                return this.gameObjects;
+            }
+            set
+            {
+                this.gameObjects = value;
             }
         }
 
@@ -73,6 +84,8 @@ namespace AcademyInvaders.Core
             {
                 case 1:
                     IPlayer offlinePlayer = InvadersFactory.Instance.CreatePlayer();
+                    IEnemy enemy = InvadersFactory.Instance.CreateEnemy();
+
                     Instance.PlayOffline(offlinePlayer);
                     break;
                 case 2:
@@ -90,32 +103,52 @@ namespace AcademyInvaders.Core
 
         public void PlayOffline(IPlayer offlinePlayer)
         {
+            List<IEnemy> enemies = new List<IEnemy>();
+            Random rnd = new Random();
+            int counter = 0;
+
             while (true)
             {
+                int randX = rnd.Next(0, Console.WindowWidth);
                 Console.Clear();
                 Console.CursorVisible = false;
 
-                if (offlinePlayer.ShootedBullets.Count != 0)
+                //if (offlinePlayer.ShootedBullets.Count != 0)
+                //{
+                //    for (int i = 0; i < offlinePlayer.ShootedBullets.Count; i++)
+                //    {
+                //        if (offlinePlayer.ShootedBullets[i].ObjectPosition.Y == 0)
+                //        {
+                //            offlinePlayer.ShootedBullets.RemoveAt(i);
+                //        }
+                //        else
+                //        {
+                //            Screen.PrintObject(offlinePlayer.ShootedBullets[i]);
+                //            offlinePlayer.ShootedBullets[i].Move();
+                //        }
+                //    }
+                //}
+
+                offlinePlayer.ShootedBullets.Remove(offlinePlayer.ShootedBullets.ToList().Find(i => i.ObjectPosition.Y == 0));
+                offlinePlayer.ShootedBullets.ToList().ForEach(Screen.PrintObject);
+                offlinePlayer.ShootedBullets.ToList().ForEach(b => b.Move());
+
+                if (counter % 20 == 0)
                 {
-                    for (int i = 0; i < offlinePlayer.ShootedBullets.Count; i++)
-                    {
-                        if (offlinePlayer.ShootedBullets[i].ObjectPosition.Y == 0)
-                        {
-                            offlinePlayer.ShootedBullets.RemoveAt(i);
-                        }
-                        else
-                        {
-                            Screen.PrintObject(offlinePlayer.ShootedBullets[i]);
-                            offlinePlayer.ShootedBullets[i].Move();
-                        }
-                    }
+                    enemies.Add(InvadersFactory.Instance.CreateEnemy(null, 2, null, ConsoleColor.Cyan, randX));
                 }
+
+                enemies.Remove(enemies.Find(i => i.ObjectPosition.Y == Console.WindowHeight));
+                
                 Screen.PrintObject(offlinePlayer);
                 Screen.PrintStats(offlinePlayer);
+                enemies.ForEach(Screen.PrintObject);
 
-
+                enemies.ForEach(p => p.Move());
                 offlinePlayer.Move();
+
                 //offlinePlayer.Score++; // Test ---------------
+                counter++;
 
                 Thread.Sleep((int)(100));
             }
@@ -134,7 +167,7 @@ namespace AcademyInvaders.Core
                 ReceiveSerializedList(client);
                 currPlayer = (IPlayer)gameObjects[0];
                 opponent = (IPlayer)gameObjects[1];
-
+                
                 // Game end -----------
                 if (opponent.Health == 0)
                 {
@@ -159,14 +192,14 @@ namespace AcademyInvaders.Core
                     b.ObjectPosition.Y = Console.WindowHeight - b.ObjectPosition.Y - 1;
                     Screen.PrintObject(b);
                 });
-
-
+                
                 this.gameObjects.ForEach(Screen.PrintObject);
 
                 int pressedKey = ReadPressedKey();
                 client.SendData(pressedKey.ToString());
 
                 Thread.Sleep((int)(300 - Instance.GameSpeed));
+
             }
         }
 
@@ -180,6 +213,14 @@ namespace AcademyInvaders.Core
             }
 
             return result;
+        }
+
+        public void RemoveObject(IPrintable gameObject, List<IPrintable> enemies)
+        {
+            if (gameObject != null && (gameObject.ObjectPosition.Y == 1 || gameObject.ObjectPosition.Y == Console.WindowHeight))
+            {
+                enemies.Remove(gameObject);
+            }
         }
 
         public void ReceiveSerializedList(IClient client)

@@ -7,5 +7,6 @@ namespace AcademyInvaders.Models.Contracts
         Position ObjectPosition { get; }
 
         ConsoleColor Color { get; set; }
+        
     }
 }

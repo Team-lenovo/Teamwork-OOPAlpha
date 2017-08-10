@@ -8,7 +8,7 @@ namespace AcademyInvaders.Core.Contracts
     {
         IPlayer CreatePlayer(PlayerState state, WeaponChoice weapon, ConsoleColor color, Position playerPosition, int lives, int health, int score);
         IBullet CreateBullet(string playerName, Position currPlayerPosition, Size BulletSize);
-        IEnemy CreateEnemy(Position position, int health, Size size, ConsoleColor color);
+        IEnemy CreateEnemy(Position position, int health, Size? size, ConsoleColor color, int rand);
 
     }
 }
