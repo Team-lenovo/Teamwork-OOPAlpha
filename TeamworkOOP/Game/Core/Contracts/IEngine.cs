@@ -6,15 +6,16 @@ namespace AcademyInvaders.Core.Contracts
 {
     public interface IEngine
     {
-        void Run();
+        List<IPrintable> GameObjects { get; set; }
 
-        int GameSpeed { get; set; }
+        void Run();
 
         void PlayOffline(IPlayer offlinePlayer);
 
         void PlayOnline(IClient client);
 
-        List<IPrintable> GameObjects { get; set; }
-        
+        void MirrorOpponent(IPlayer opponent);
+
+        void HitCheck(IPlayer player, List<IEnemy> enemies, IPlayer opponent = null);
     }
 }

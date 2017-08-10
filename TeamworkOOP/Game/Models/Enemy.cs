@@ -22,7 +22,7 @@ namespace AcademyInvaders.Models
         {
             get
             {
-                return ConsoleColor.Magenta;
+                return this.color;
             }
             set
             {
@@ -34,7 +34,7 @@ namespace AcademyInvaders.Models
         {
             get
             {
-                return 2;
+                return this.health;
             }
 
             set
@@ -70,12 +70,7 @@ namespace AcademyInvaders.Models
         {
             throw new NotImplementedException();
         }
-
-        //public IEnumerable<Enemy> CreateObjects()
-        //{
-        //    return new List<GameObject>();
-        //}
-
+        
         public override string ToString()
         {
             return "@@@@";

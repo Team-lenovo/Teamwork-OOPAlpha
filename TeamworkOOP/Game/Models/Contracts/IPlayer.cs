@@ -6,7 +6,7 @@ namespace AcademyInvaders.Models.Contracts
     {
         int Score { get; set; }
         void MoveOnLine(int pressedKey);
-        IList<IBullet> ShootedBullets { get; set; }
+        List<IBullet> ShootedBullets { get; set; }
         int Lives { get; set; }
         int Health { get; set; }
         WeaponChoice Weapon { get; set; }

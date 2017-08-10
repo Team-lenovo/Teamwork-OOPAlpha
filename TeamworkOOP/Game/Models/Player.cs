@@ -25,7 +25,7 @@ namespace AcademyInvaders.Models
     [Serializable]
     public class Player : IPlayer, IPrintable
     {
-        private IList<IBullet> shootedBullets;
+        private List<IBullet> shootedBullets;
         private string skin;             //Inherit from GameObject
         private PlayerState state;
         private WeaponChoice weapon;
@@ -170,7 +170,7 @@ namespace AcademyInvaders.Models
             }
         }
 
-        public IList<IBullet> ShootedBullets
+        public List<IBullet> ShootedBullets
         {
             get
             {

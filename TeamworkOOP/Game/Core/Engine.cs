@@ -17,7 +17,6 @@ namespace AcademyInvaders.Core
     public class Engine : IEngine
     {
         private static readonly IEngine instance = new Engine();
-        private int gameSpeed;
         private List<IPrintable> gameObjects = new List<IPrintable>();
 
         public static IEngine Instance
@@ -40,22 +39,9 @@ namespace AcademyInvaders.Core
             }
         }
 
-        public int GameSpeed
-        {
-            get
-            {
-                return this.gameSpeed;
-            }
-            set
-            {
-                this.gameSpeed = value;
-            }
-        }
-
         public void Run()
         {
             Screen.SetScreenSize(41, 120);
-            Instance.GameSpeed = 200;
 
             while (true)
             {
@@ -113,32 +99,36 @@ namespace AcademyInvaders.Core
                 Console.Clear();
                 Console.CursorVisible = false;
 
-                offlinePlayer.ShootedBullets.Remove(offlinePlayer.ShootedBullets.ToList().Find(i => i.ObjectPosition.Y == 0));
-                offlinePlayer.ShootedBullets.ToList().ForEach(Screen.PrintObject);
-                offlinePlayer.ShootedBullets.ToList().ForEach(b => b.Move());
+                offlinePlayer.ShootedBullets.RemoveAll(b => b.ObjectPosition.Y == 1);
+                offlinePlayer.ShootedBullets.ForEach(Screen.PrintObject);
+                offlinePlayer.ShootedBullets.ForEach(b => b.Move());
 
                 if (counter % 20 == 0)
                 {
-                    enemies.Add(InvadersFactory.Instance.CreateEnemy(null, 2, null, ConsoleColor.Cyan, randX));
+                    enemies.Add(InvadersFactory.Instance.CreateEnemy(null, 1, null, ConsoleColor.Green, randX));
                 }
 
                 enemies.Remove(enemies.Find(i => i.ObjectPosition.Y == Console.WindowHeight));
-                
+
                 Screen.PrintObject(offlinePlayer);
                 Screen.PrintStats(offlinePlayer);
                 enemies.ForEach(Screen.PrintObject);
-
                 enemies.ForEach(p => p.Move());
                 offlinePlayer.Move();
-                
+
+                // Hit check ======================
+
+                Instance.HitCheck(offlinePlayer, enemies);
+
+
                 counter++;
-                Thread.Sleep((int)(100));
+                Thread.Sleep(100);
             }
         }
 
         public void PlayOnline(IClient client)
         {
-            IPlayer currPlayer;
+            IPlayer currentPlayer;
             IPlayer opponent;
             while (true)
             {
@@ -147,41 +137,30 @@ namespace AcademyInvaders.Core
 
                 // Read GameObjects from server and print
                 ReceiveSerializedList(client);
-                currPlayer = (IPlayer)gameObjects[0];
+                currentPlayer = (IPlayer)gameObjects[0];
                 opponent = (IPlayer)gameObjects[1];
-                
+
                 // Game end -----------
                 if (opponent.Health == 0)
                 {
                     GameStory.printGameComplete();
                     break;
                 }
-                else if (currPlayer.Health == 0)
+                else if (currentPlayer.Health == 0)
                 {
                     GameStory.printGameOver();
                     break;
                 }
 
-
-                Screen.PrintStats(currPlayer, (Player)gameObjects[1]);
-
-                currPlayer.ShootedBullets.ToList().ForEach(Screen.PrintObject);
-                // Mirror opponent
-                opponent.Skin = "|<V>|";
-                opponent.ObjectPosition.Y = 1;
-                opponent.ShootedBullets.ToList().ForEach(b =>
-                {
-                    b.ObjectPosition.Y = Console.WindowHeight - b.ObjectPosition.Y - 1;
-                    Screen.PrintObject(b);
-                });
-                
-                this.gameObjects.ForEach(Screen.PrintObject);
+                Screen.PrintStats(currentPlayer, opponent);
+                currentPlayer.ShootedBullets.ForEach(Screen.PrintObject);
+                Instance.MirrorOpponent(opponent);
+                Instance.GameObjects.ForEach(Screen.PrintObject);
 
                 int pressedKey = ReadPressedKey();
                 client.SendData(pressedKey.ToString());
 
-                Thread.Sleep((int)(300 - Instance.GameSpeed));
-
+                Thread.Sleep(100);
             }
         }
 
@@ -195,14 +174,6 @@ namespace AcademyInvaders.Core
             }
 
             return result;
-        }
-
-        public void RemoveObject(IPrintable gameObject, List<IPrintable> enemies)
-        {
-            if (gameObject != null && (gameObject.ObjectPosition.Y == 1 || gameObject.ObjectPosition.Y == Console.WindowHeight))
-            {
-                enemies.Remove(gameObject);
-            }
         }
 
         public void ReceiveSerializedList(IClient client)
@@ -235,6 +206,48 @@ namespace AcademyInvaders.Core
             catch (Exception)
             {
                 Console.WriteLine("Exception");
+            }
+        }
+
+        public void MirrorOpponent(IPlayer opponent)
+        {
+            opponent.Skin = "|<V>|";
+            opponent.ObjectPosition.Y = 1;
+            opponent.ShootedBullets.ForEach(b =>
+            {
+                b.ObjectPosition.Y = Console.WindowHeight - b.ObjectPosition.Y - 1;
+                Screen.PrintObject(b);
+            });
+        }
+
+        public void HitCheck(IPlayer player, List<IEnemy> enemies, IPlayer opponent = null)
+        {
+            if (enemies != null)
+            {
+                enemies.ForEach(enemy =>
+                {
+                    if (player.ShootedBullets.Any(bullet =>
+                        bullet.ObjectPosition.X >= enemy.ObjectPosition.X &&
+                        bullet.ObjectPosition.X <= enemy.ObjectPosition.X + enemy.ToString().Length - 1 &&
+                        enemy.ObjectPosition.Y == bullet.ObjectPosition.Y))
+                    {
+                        player.Score++;
+                        enemy.Health--;
+                    }
+                });
+                enemies.RemoveAll(e => e.Health == 0);
+            }
+
+            if (opponent != null)
+            {
+                if (player.ShootedBullets.Any(b =>
+                    b.ObjectPosition.X >= opponent.ObjectPosition.X &&
+                    b.ObjectPosition.X <= opponent.ObjectPosition.X + opponent.ToString().Length - 1 &&
+                    opponent.ObjectPosition.Y == Console.WindowHeight - b.ObjectPosition.Y))
+                {
+                    player.Score++;
+                    opponent.Health--;
+                }
             }
         }
     }
