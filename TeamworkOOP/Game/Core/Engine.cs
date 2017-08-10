@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
-using System.Linq;
 
 using AcademyInvaders.Core.Contracts;
+using AcademyInvaders.Core.Factories;
 using AcademyInvaders.Models.Contracts;
 using AcademyInvaders.View;
-using AcademyInvaders.Core.Factories;
 
 namespace AcademyInvaders.Core
 {
@@ -122,7 +122,7 @@ namespace AcademyInvaders.Core
                 offlinePlayer.ShootedBullets.ForEach(Screen.PrintObject);
                 offlinePlayer.ShootedBullets.ForEach(b => b.Move());
 
-                if (counter % 20 == 0)
+                if (counter % 10 == 0)
                 {
                     randX = rnd.Next(0, Console.WindowWidth - 2);
                     enemies.Add(InvadersFactory.Instance.CreateEnemy(null, 1, null, ConsoleColor.Green, randX));
@@ -136,8 +136,6 @@ namespace AcademyInvaders.Core
                 enemies.ForEach(Screen.PrintObject);
                 enemies.ForEach(p => p.Move());
                 offlinePlayer.Move();
-
-                // Hit check ======================
 
                 Instance.HitCheck(offlinePlayer, enemies);
 

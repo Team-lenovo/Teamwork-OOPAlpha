@@ -74,7 +74,7 @@ namespace AcademyInvaders.Models
         
         public override string ToString()
         {
-            return "@@@@";
+            return "\\>V</";
         }
     }
 }

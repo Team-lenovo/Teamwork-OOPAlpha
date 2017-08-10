@@ -26,13 +26,13 @@ namespace AcademyInvaders.View
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(0, 0);
-            Console.WriteLine($"$:{player1.Score} H:{new string('#', player1.Health)}");
+            Console.WriteLine($"$:{player1.Score} H:{new string('+', player1.Health)}");
 
             if (player2 != null)
             {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.SetCursorPosition(Console.WindowWidth / 2 + 20, 0);
-                Console.WriteLine($"$:{player2.Score} H:{new string('#', player2.Health)}");
+                Console.WriteLine($"$:{player2.Score} H:{new string('+', player2.Health)}");
             }
         }
     }
