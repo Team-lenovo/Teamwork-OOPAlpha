@@ -113,22 +113,6 @@ namespace AcademyInvaders.Core
                 Console.Clear();
                 Console.CursorVisible = false;
 
-                //if (offlinePlayer.ShootedBullets.Count != 0)
-                //{
-                //    for (int i = 0; i < offlinePlayer.ShootedBullets.Count; i++)
-                //    {
-                //        if (offlinePlayer.ShootedBullets[i].ObjectPosition.Y == 0)
-                //        {
-                //            offlinePlayer.ShootedBullets.RemoveAt(i);
-                //        }
-                //        else
-                //        {
-                //            Screen.PrintObject(offlinePlayer.ShootedBullets[i]);
-                //            offlinePlayer.ShootedBullets[i].Move();
-                //        }
-                //    }
-                //}
-
                 offlinePlayer.ShootedBullets.Remove(offlinePlayer.ShootedBullets.ToList().Find(i => i.ObjectPosition.Y == 0));
                 offlinePlayer.ShootedBullets.ToList().ForEach(Screen.PrintObject);
                 offlinePlayer.ShootedBullets.ToList().ForEach(b => b.Move());
@@ -146,10 +130,8 @@ namespace AcademyInvaders.Core
 
                 enemies.ForEach(p => p.Move());
                 offlinePlayer.Move();
-
-                //offlinePlayer.Score++; // Test ---------------
+                
                 counter++;
-
                 Thread.Sleep((int)(100));
             }
         }

@@ -48,7 +48,6 @@
     <Compile Include="Core\Factories\InvadersFactory.cs" />
     <Compile Include="Models\Contracts\IPlayer.cs" />
     <Compile Include="Models\Contracts\IMoveable.cs" />
-    <Compile Include="Models\Contracts\IRemoveable.cs" />
     <Compile Include="Models\Contracts\IShootable.cs" />
     <Compile Include="Models\Contracts\ISizeable.cs" />
     <Compile Include="Core\Contracts\IClient.cs" />

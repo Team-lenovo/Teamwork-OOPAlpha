@@ -4,7 +4,7 @@ using System;
 
 namespace AcademyInvaders.Models
 {
-    public class Enemy : GameObject, IMoveable, IPrintable, IRemoveable, IShootable, ISizeable, IEnemy
+    public class Enemy : GameObject, IMoveable, IPrintable, IShootable, ISizeable, IEnemy
     {
         private ConsoleColor color;
         private Position objectPosition;
@@ -22,7 +22,7 @@ namespace AcademyInvaders.Models
         {
             get
             {
-                return ConsoleColor.Cyan;
+                return ConsoleColor.Magenta;
             }
             set
             {
@@ -54,12 +54,7 @@ namespace AcademyInvaders.Models
                 this.objectPosition = value;
             }
         }
-        
-        public void Destroy()
-        {
-
-        }
-
+      
         public override void Move()
         {
 
@@ -83,7 +78,7 @@ namespace AcademyInvaders.Models
 
         public override string ToString()
         {
-            return "@@@@@";
+            return "@@@@";
         }
     }
 }
