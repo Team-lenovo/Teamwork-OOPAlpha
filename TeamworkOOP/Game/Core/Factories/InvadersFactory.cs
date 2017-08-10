@@ -31,7 +31,7 @@ namespace AcademyInvaders.Core.Factories
 
 
         public IPlayer CreatePlayer(PlayerState state = PlayerState.Default, WeaponChoice weapon = WeaponChoice.Torpedo, ConsoleColor color = ConsoleColor.Cyan,
-            Position playerPosition = null, int lives = 3, int health = 30, int score = 0)
+            Position playerPosition = null, int lives = 3, int health = 10, int score = 0)
         {
             if (playerPosition == null)
             {

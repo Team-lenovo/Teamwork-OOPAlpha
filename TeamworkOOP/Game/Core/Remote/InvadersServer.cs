@@ -107,24 +107,39 @@ namespace AcademyInvaders.Core.Remote
             IPlayer onlinePlayer = client.ClientPlayer;
             string opponentName = Instance.ChooseOpponent(client);
             IPlayer opponent = Instance.Players[opponentName];
+            List<IEnemy> enemies = new List<IEnemy>();
 
             NetworkStream ns = client.Client.GetStream();
-            List<IPrintable> pl = new List<IPrintable>() { onlinePlayer, opponent };
+            List<object> objectsList = new List<object>() { onlinePlayer, opponent, enemies };
+
+            Random rnd = new Random();
+            int randX = 0;
+            int counter = 0;
+
             while (clientConnected)
             {
                 try
                 {
                     // Online game start
-                    SendSerializedObject(client.Client, pl);
+                    SendSerializedObject(client.Client, objectsList);
 
                     onlinePlayer.ShootedBullets.RemoveAll(b => b.ObjectPosition.Y == 1);
                     onlinePlayer.ShootedBullets.ForEach(b => b.Move());
 
-                    Engine.Instance.HitCheck(onlinePlayer, null, opponent);
+                    if (counter % 3 == 0)
+                    {
+                        randX = rnd.Next(0, Console.WindowWidth - 2);
+                        enemies.Add(InvadersFactory.Instance.CreateEnemy(null, 1, null, ConsoleColor.Green, randX));
+                    }
+                    enemies.ForEach(p => p.Move());
+                    Engine.Instance.HitCheck(onlinePlayer, enemies, opponent);
+                    enemies.Remove(enemies.Find(i => i.ObjectPosition.Y == Console.WindowHeight));
 
+                    // Read passed key
                     data = sReader.ReadLine();
                     onlinePlayer.MoveOnLine(int.Parse(data));
 
+                    counter++;
                     Thread.Sleep(100);
                 }
                 catch (IOException)

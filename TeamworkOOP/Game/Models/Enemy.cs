@@ -4,6 +4,7 @@ using System;
 
 namespace AcademyInvaders.Models
 {
+    [Serializable]
     public class Enemy : GameObject, IMoveable, IPrintable, IShootable, ISizeable, IEnemy
     {
         private ConsoleColor color;

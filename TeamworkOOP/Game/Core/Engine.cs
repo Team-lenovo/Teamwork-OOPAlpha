@@ -7,7 +7,6 @@ using System.Threading;
 using System.Linq;
 
 using AcademyInvaders.Core.Contracts;
-using AcademyInvaders.Models;
 using AcademyInvaders.Models.Contracts;
 using AcademyInvaders.View;
 using AcademyInvaders.Core.Factories;
@@ -17,7 +16,9 @@ namespace AcademyInvaders.Core
     public class Engine : IEngine
     {
         private static readonly IEngine instance = new Engine();
-        private List<IPrintable> gameObjects = new List<IPrintable>();
+        private List<object> gameObjects = new List<object>();
+        private int gameSpeed;
+
 
         public static IEngine Instance
         {
@@ -27,7 +28,7 @@ namespace AcademyInvaders.Core
             }
         }
 
-        public List<IPrintable> GameObjects
+        public List<object> GameObjects
         {
             get
             {
@@ -36,6 +37,25 @@ namespace AcademyInvaders.Core
             set
             {
                 this.gameObjects = value;
+            }
+        }
+
+        public int GameSpeed
+        {
+            get
+            {
+                return this.gameSpeed;
+            }
+            set
+            {
+                if (value == 100)
+                {
+                    value = 99;
+                }
+                else
+                {
+                    this.gameSpeed = value;
+                }
             }
         }
 
@@ -71,7 +91,6 @@ namespace AcademyInvaders.Core
                 case 1:
                     IPlayer offlinePlayer = InvadersFactory.Instance.CreatePlayer();
                     IEnemy enemy = InvadersFactory.Instance.CreateEnemy();
-
                     Instance.PlayOffline(offlinePlayer);
                     break;
                 case 2:
@@ -91,11 +110,11 @@ namespace AcademyInvaders.Core
         {
             List<IEnemy> enemies = new List<IEnemy>();
             Random rnd = new Random();
+            int randX = 0;
             int counter = 0;
 
             while (true)
             {
-                int randX = rnd.Next(0, Console.WindowWidth);
                 Console.Clear();
                 Console.CursorVisible = false;
 
@@ -105,7 +124,9 @@ namespace AcademyInvaders.Core
 
                 if (counter % 20 == 0)
                 {
+                    randX = rnd.Next(0, Console.WindowWidth - 2);
                     enemies.Add(InvadersFactory.Instance.CreateEnemy(null, 1, null, ConsoleColor.Green, randX));
+                    Instance.GameSpeed++;
                 }
 
                 enemies.Remove(enemies.Find(i => i.ObjectPosition.Y == Console.WindowHeight));
@@ -120,9 +141,15 @@ namespace AcademyInvaders.Core
 
                 Instance.HitCheck(offlinePlayer, enemies);
 
+                // Game end -----------
+                if (offlinePlayer.Health == 0)
+                {
+                    GameStory.printGameOver();
+                    break;
+                }
 
                 counter++;
-                Thread.Sleep(100);
+                Thread.Sleep(100 - Instance.GameSpeed);
             }
         }
 
@@ -130,6 +157,8 @@ namespace AcademyInvaders.Core
         {
             IPlayer currentPlayer;
             IPlayer opponent;
+            List<IEnemy> enemies;
+
             while (true)
             {
                 Console.Clear();
@@ -139,6 +168,7 @@ namespace AcademyInvaders.Core
                 ReceiveSerializedList(client);
                 currentPlayer = (IPlayer)gameObjects[0];
                 opponent = (IPlayer)gameObjects[1];
+                enemies = (List<IEnemy>)gameObjects[2];
 
                 // Game end -----------
                 if (opponent.Health == 0)
@@ -152,10 +182,12 @@ namespace AcademyInvaders.Core
                     break;
                 }
 
+                Instance.MirrorOpponent(opponent);
                 Screen.PrintStats(currentPlayer, opponent);
                 currentPlayer.ShootedBullets.ForEach(Screen.PrintObject);
-                Instance.MirrorOpponent(opponent);
-                Instance.GameObjects.ForEach(Screen.PrintObject);
+                Screen.PrintObject(currentPlayer);
+                Screen.PrintObject(opponent);
+                enemies.ForEach(Screen.PrintObject);
 
                 int pressedKey = ReadPressedKey();
                 client.SendData(pressedKey.ToString());
@@ -186,7 +218,7 @@ namespace AcademyInvaders.Core
                 using (var ms = new MemoryStream(incommingBytes))
                 {
                     var formatter = new BinaryFormatter();
-                    this.gameObjects = (List<IPrintable>)formatter.Deserialize(ms);
+                    this.gameObjects = (List<object>)formatter.Deserialize(ms);
                 }
             }
             catch (IOException)
@@ -233,6 +265,14 @@ namespace AcademyInvaders.Core
                     {
                         player.Score++;
                         enemy.Health--;
+                    }
+                    else if (((enemy.ObjectPosition.X >= player.ObjectPosition.X &&
+                              enemy.ObjectPosition.X <= player.ObjectPosition.X + player.ToString().Length - 1) ||
+                              (enemy.ObjectPosition.X + enemy.ToString().Length - 1 <= player.ObjectPosition.X + player.ToString().Length - 1 &&
+                              enemy.ObjectPosition.X + enemy.ToString().Length - 1 >= player.ObjectPosition.X)) &&
+                             enemy.ObjectPosition.Y == player.ObjectPosition.Y)
+                    {
+                        player.Health--;
                     }
                 });
                 enemies.RemoveAll(e => e.Health == 0);

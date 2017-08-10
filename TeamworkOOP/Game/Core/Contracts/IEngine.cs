@@ -6,7 +6,9 @@ namespace AcademyInvaders.Core.Contracts
 {
     public interface IEngine
     {
-        List<IPrintable> GameObjects { get; set; }
+        List<object> GameObjects { get; set; }
+
+        int GameSpeed { get; set; }
 
         void Run();
 
