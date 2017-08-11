@@ -18,7 +18,7 @@ namespace AcademyInvaders.Core
         private static readonly IEngine instance = new Engine();
         private List<object> gameObjects = new List<object>();
         private int gameSpeed;
-        
+
         public static IEngine Instance
         {
             get
@@ -142,7 +142,14 @@ namespace AcademyInvaders.Core
                 if (boss != null)
                 {
                     boss.Move();
-                    boss.Shoot();
+                    boss.ShootedBullets.RemoveAll(bull => bull.ObjectPosition.Y == Console.WindowHeight);
+                    boss.ShootedBullets.ForEach(b =>
+                    {
+                        Screen.PrintObject(b);
+                        b.ObjectPosition.Y++;
+                    });
+
+
                     Screen.PrintObject(boss);
                     HitCheck(offlinePlayer, null, null, boss);
                     Screen.PrintStats(offlinePlayer, null, boss);
@@ -315,10 +322,18 @@ namespace AcademyInvaders.Core
             {
                 if (player.ShootedBullets.Any(b =>
                     b.ObjectPosition.X >= boss.ObjectPosition.X &&
-                    b.ObjectPosition.X <= boss.ObjectPosition.X + boss.ToString().Length - 1 ))
+                    b.ObjectPosition.X <= boss.ObjectPosition.X + boss.ToString().Length - 1))
                 {
                     player.Score++;
                     boss.Health--;
+                }
+
+                if (boss.ShootedBullets.Any(b =>
+                    b.ObjectPosition.X >= player.ObjectPosition.X &&
+                    b.ObjectPosition.X <= player.ObjectPosition.X + player.ToString().Length - 1 &&
+                    player.ObjectPosition.Y == Console.WindowHeight - b.ObjectPosition.Y))
+                {
+                    player.Health--;
                 }
             }
         }

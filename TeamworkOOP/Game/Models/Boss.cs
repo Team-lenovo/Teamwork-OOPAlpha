@@ -9,7 +9,7 @@ namespace AcademyInvaders.Models
 {
     public class Boss : Enemy, IBoss
     {
-        private IList<IBullet> shootedBullets;
+        private List<IBullet> shootedBullets;
 
         public Boss(Position position, int health, Size? size, ConsoleColor color, int randomX) : base(position, health, size, color, randomX)
         {
@@ -17,7 +17,7 @@ namespace AcademyInvaders.Models
             this.ShootedBullets = new List<IBullet>();
         }
 
-        public IList<IBullet> ShootedBullets
+        public List<IBullet> ShootedBullets
         {
             get
             {
@@ -37,6 +37,8 @@ namespace AcademyInvaders.Models
             randX = rnd.Next(0, Console.WindowWidth - 4);
 
             this.ObjectPosition.X = randX;
+
+            this.Shoot();
         }
 
         public void Shoot()
