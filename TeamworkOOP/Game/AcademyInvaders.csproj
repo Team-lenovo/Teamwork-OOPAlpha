@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Contracts\IInvadersFactory.cs" />
+    <Compile Include="Models\Contracts\IBoss.cs" />
     <Compile Include="Models\Contracts\IEnemy.cs" />
     <Compile Include="Core\Factories\InvadersFactory.cs" />
     <Compile Include="Models\Contracts\IPlayer.cs" />
