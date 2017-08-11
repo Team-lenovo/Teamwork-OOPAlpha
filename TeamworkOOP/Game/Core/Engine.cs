@@ -128,6 +128,10 @@ namespace AcademyInvaders.Core
                     enemies.Add(InvadersFactory.Instance.CreateEnemy(null, 1, null, ConsoleColor.Green, randX));
                     Instance.GameSpeed++;
                 }
+                else if (counter > 1000)
+                {
+
+                }
 
                 enemies.Remove(enemies.Find(i => i.ObjectPosition.Y == Console.WindowHeight));
 
