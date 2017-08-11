@@ -10,6 +10,7 @@ using AcademyInvaders.Core.Contracts;
 using AcademyInvaders.Core.Factories;
 using AcademyInvaders.Models.Contracts;
 using AcademyInvaders.View;
+using System.Media;
 
 namespace AcademyInvaders.Core
 {
@@ -61,6 +62,7 @@ namespace AcademyInvaders.Core
         public void Run()
         {
             Screen.SetScreenSize(41, 120);
+            playSound("menuMusic.wav");
 
             while (true)
             {
@@ -107,6 +109,8 @@ namespace AcademyInvaders.Core
 
         public void PlayOffline(IPlayer offlinePlayer)
         {
+            playSound("singlePlayer.wav");
+
             List<IEnemy> enemies = new List<IEnemy>();
             IBoss boss = null;
             Random rnd = new Random();
@@ -115,6 +119,7 @@ namespace AcademyInvaders.Core
 
             while (true)
             {
+
                 Console.Clear();
                 Console.CursorVisible = false;
 
@@ -123,12 +128,14 @@ namespace AcademyInvaders.Core
                 offlinePlayer.ShootedBullets.ForEach(b => b.Move());
 
                 randX = rnd.Next(0, Console.WindowWidth - 2);
-                if (counter == 100)
+                if (counter == 1000)
                 {
+                    Instance.GameSpeed = 20;
                     boss = InvadersFactory.Instance.CreateBoss(null, 10, null, ConsoleColor.Red, randX);
                     boss.ObjectPosition.Y = 1;
+                    playSound("bossMusic.wav");
                 }
-                else if (counter < 100 && counter % 10 == 0)
+                else if (counter < 1000 && counter % 10 == 0)
                 {
                     enemies.Add(InvadersFactory.Instance.CreateEnemy(null, 1, null, ConsoleColor.Green, randX));
                     Instance.GameSpeed++;
@@ -141,7 +148,10 @@ namespace AcademyInvaders.Core
 
                 if (boss != null)
                 {
-                    boss.Move();
+                    if (counter % 5 == 0)
+                    {
+                        boss.Move();
+                    }
                     boss.ShootedBullets.RemoveAll(bull => bull.ObjectPosition.Y == Console.WindowHeight);
                     boss.ShootedBullets.ForEach(b =>
                     {
@@ -177,7 +187,7 @@ namespace AcademyInvaders.Core
                 }
 
                 counter++;
-                Thread.Sleep(200 - Instance.GameSpeed);
+                Thread.Sleep(100 - Instance.GameSpeed);
             }
         }
 
@@ -280,6 +290,14 @@ namespace AcademyInvaders.Core
             });
         }
 
+        static void playSound(string path)
+        {
+            SoundPlayer player = new SoundPlayer();
+            player.SoundLocation = path;
+            player.Load();
+            player.Play();
+        }
+
         public void HitCheck(IPlayer player, List<IEnemy> enemies, IPlayer opponent = null, IBoss boss = null)
         {
             if (enemies != null)
@@ -322,7 +340,8 @@ namespace AcademyInvaders.Core
             {
                 if (player.ShootedBullets.Any(b =>
                     b.ObjectPosition.X >= boss.ObjectPosition.X &&
-                    b.ObjectPosition.X <= boss.ObjectPosition.X + boss.ToString().Length - 1))
+                    b.ObjectPosition.X <= boss.ObjectPosition.X + boss.ToString().Length - 1 &&
+                    boss.ObjectPosition.Y == b.ObjectPosition.Y))
                 {
                     player.Score++;
                     boss.Health--;

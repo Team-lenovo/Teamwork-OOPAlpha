@@ -205,6 +205,8 @@ namespace AcademyInvaders.Models
                 }
                 else if (pressedKey.Key == ConsoleKey.Spacebar)
                 {
+                    Console.Beep(700, 40);
+
                     Position startBulletPosition = new Position() { X = this.ObjectPosition.X, Y = this.ObjectPosition.Y };
                     IBullet newBullet = new Bullet(this.GetHashCode().ToString(), startBulletPosition, new Size(1, 1));
                     //Here must be created by factory
@@ -231,10 +233,12 @@ namespace AcademyInvaders.Models
             }
             else if ((ConsoleKey)pressedKey == ConsoleKey.Spacebar)
             {
+
                 Position startBulletPosition = new Position() { X = this.ObjectPosition.X, Y = this.ObjectPosition.Y }; 
                 IBullet newBullet = new Bullet(this.GetHashCode().ToString(), startBulletPosition, new Size(1, 1));
                 //Here must be created by factory
                 ShootedBullets.Add(newBullet);
+
             }
         }
 

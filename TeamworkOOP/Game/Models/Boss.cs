@@ -1,9 +1,6 @@
 ﻿using AcademyInvaders.Models.Contracts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AcademyInvaders.Models
 {
@@ -45,7 +42,7 @@ namespace AcademyInvaders.Models
         {
             Position startBulletPosition = new Position() { X = this.ObjectPosition.X, Y = this.ObjectPosition.Y };
 
-            this.ShootedBullets.Add(new Bullet("Big Boss Bullet", this.Position, new Size(1, 1), ConsoleColor.DarkBlue));
+            this.ShootedBullets.Add(new Bullet("Big Boss Bullet", this.Position, new Size(1, 1), ConsoleColor.Yellow));
         }
 
         public override string ToString()

@@ -7,6 +7,7 @@ namespace AcademyInvaders
     {
         public static void Main()
         {
+
             Engine.Instance.Run();
         }
     }
