@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AcademyInvaders.Core.Engine" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAEAAAQBAKAAAAAAAAQAAFAAAEAQAAAAEAAAAI=</HashCode>
+      <FileName>Core\Engine.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AcademyInvaders.Core.Factories.InvadersFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAEAAAAAAAAAAAAAABAAAgBQAAAAAAABAA=</HashCode>
+      <FileName>Core\Factories\InvadersFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AcademyInvaders.Remote.InvadersClient" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEQAAAAAYAACAAAAAEAAgAABQAAAAgQAAAgBAAAAAQ=</HashCode>
+      <FileName>Core\Remote\InvadersClient.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AcademyInvaders.Core.Remote.InvadersServer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAgAAAACAAACBAACAAAAAgAABgAAgAYAAgAAAAIAI=</HashCode>
+      <FileName>Core\Remote\InvadersServer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AcademyInvaders.GameStory" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAIEAAAgAAAAAAABQAIAAAA=</HashCode>
+      <FileName>GameStory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AcademyInvaders.StartUp" Collapsed="true">
+    <Position X="13.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>StartUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AcademyInvaders.Models.Abstractions.GameObject" Collapsed="true">
+    <Position X="1.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAIAAgAAwAIAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Abstractions\GameObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AcademyInvaders.Models.Boss" Collapsed="true">
+    <Position X="2.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAIAAAIAABAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Boss.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AcademyInvaders.Models.Bullet" Collapsed="true">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEACAAAAIAAAAAkAAEAAAAABAAAAAAAAAAAgAACBAA=</HashCode>
+      <FileName>Models\Bullet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AcademyInvaders.Models.Enemy" Collapsed="true">
+    <Position X="2.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAIAAAAAEAAAAAAAABAAAAACAAAAIgAAABAg=</HashCode>
+      <FileName>Models\Enemy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AcademyInvaders.Models.Player" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACIEAAIAAAAgEAAAIAAAALAIAAAiGBAAAhAQAgAg=</HashCode>
+      <FileName>Models\Player.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AcademyInvaders.Models.Position" Collapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Models\Position.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AcademyInvaders.Utils.InvadersIO" Collapsed="true">
+    <Position X="11.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utils\InvadersIO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AcademyInvaders.View.Screen" Collapsed="true">
+    <Position X="11.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAACAAAAAABAAAAAACAAAAAAAAAAACAAA=</HashCode>
+      <FileName>View\Screen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="AcademyInvaders.Models.Size" Collapsed="true">
+    <Position X="11.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Size.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="AcademyInvaders.Core.Contracts.IClient" Collapsed="true">
+    <Position X="11.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAYAAAAAAAAAAAgAABAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Core\Contracts\IClient.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AcademyInvaders.Core.Contracts.IEngine" Collapsed="true">
+    <Position X="13.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAEAAAAAAKAAAAAAAAAAAEAAAEAAAAAAAAAAAI=</HashCode>
+      <FileName>Core\Contracts\IEngine.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AcademyInvaders.Core.Contracts.IInvadersFactory" Collapsed="true">
+    <Position X="15.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAgBAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Contracts\IInvadersFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AcademyInvaders.Core.Contracts.IServer" Collapsed="true">
+    <Position X="17" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACAAAAAAACAAAAAAAAAgAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Core\Contracts\IServer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AcademyInvaders.Models.Contracts.IBoss" Collapsed="true">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Contracts\IBoss.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AcademyInvaders.Models.Contracts.IBullet" Collapsed="true">
+    <Position X="4" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Contracts\IBullet.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AcademyInvaders.Models.Contracts.IEnemy" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Contracts\IEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AcademyInvaders.Models.Contracts.IMoveable" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Contracts\IMoveable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AcademyInvaders.Models.Contracts.IPlayer" Collapsed="true">
+    <Position X="7" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACAEAAAAAAAgAAAAAAAAAAAAAAAgCAAAABAQAAAA=</HashCode>
+      <FileName>Models\Contracts\IPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AcademyInvaders.Models.Contracts.IPrintable" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\Contracts\IPrintable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AcademyInvaders.Models.Contracts.IShootable" Collapsed="true">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Contracts\IShootable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AcademyInvaders.Models.Contracts.ISizeable" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Contracts\ISizeable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="AcademyInvaders.Models.PlayerState" Collapsed="true">
+    <Position X="11.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAIAABAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Models\Player.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AcademyInvaders.Models.WeaponChoice" Collapsed="true">
+    <Position X="13.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAEACAIACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Player.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
