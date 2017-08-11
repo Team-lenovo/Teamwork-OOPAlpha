@@ -56,11 +56,11 @@ namespace AcademyInvaders.Core.Factories
             return new Bullet(playerName, currPlayerPosition, BulletSize);
         }
 
-        public IBoss CreateBoss(Position currBossPosition = null, int health = 10, Size? size = null, ConsoleColor color = ConsoleColor.DarkBlue, int randomX = 0)
+        public IBoss CreateBoss(Position currBossPosition = null, int health = 10, Size? size = null, ConsoleColor color = ConsoleColor.Red, int randomX = 0)
         {
             if (currBossPosition==null)
             {
-                currBossPosition = new Position(Console.WindowWidth / 2, 0);
+                currBossPosition = new Position(10, 0);
             }
             if (size == null)
             {

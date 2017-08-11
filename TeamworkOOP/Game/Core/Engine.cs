@@ -109,6 +109,7 @@ namespace AcademyInvaders.Core
         public void PlayOffline(IPlayer offlinePlayer)
         {
             List<IEnemy> enemies = new List<IEnemy>();
+            IBoss boss = null;
             Random rnd = new Random();
             int randX = 0;
             int counter = 0;
@@ -118,25 +119,43 @@ namespace AcademyInvaders.Core
                 Console.Clear();
                 Console.CursorVisible = false;
 
-                offlinePlayer.ShootedBullets.RemoveAll(b => b.ObjectPosition.Y == 1);
+                offlinePlayer.ShootedBullets.RemoveAll(b => b.ObjectPosition.Y == 0);
                 offlinePlayer.ShootedBullets.ForEach(Screen.PrintObject);
                 offlinePlayer.ShootedBullets.ForEach(b => b.Move());
 
-                if (counter % 10 == 0)
+                randX = rnd.Next(0, Console.WindowWidth - 2);
+                if (counter == 100)
                 {
-                    randX = rnd.Next(0, Console.WindowWidth - 2);
+                    boss = InvadersFactory.Instance.CreateBoss(null, 10, null, ConsoleColor.Red, randX);
+                    boss.ObjectPosition.Y = 1;
+                }
+                else if (counter < 100 && counter % 10 == 0)
+                {
                     enemies.Add(InvadersFactory.Instance.CreateEnemy(null, 1, null, ConsoleColor.Green, randX));
                     Instance.GameSpeed++;
-                }
-                else if (counter > 1000)
-                {
-
                 }
 
                 enemies.Remove(enemies.Find(i => i.ObjectPosition.Y == Console.WindowHeight));
 
                 Screen.PrintObject(offlinePlayer);
                 Screen.PrintStats(offlinePlayer);
+
+                if (boss != null)
+                {
+                    boss.Move();
+                    boss.Shoot();
+                    Screen.PrintObject(boss);
+                    HitCheck(offlinePlayer, null, null, boss);
+                    Screen.PrintStats(offlinePlayer, null, boss);
+
+                    if (boss.Health == 0)
+                    {
+                        Console.Clear();
+                        GameStory.printGameComplete();
+                        break;
+                    }
+                }
+
                 enemies.ForEach(Screen.PrintObject);
                 enemies.ForEach(p => p.Move());
                 offlinePlayer.Move();
@@ -152,7 +171,7 @@ namespace AcademyInvaders.Core
                 }
 
                 counter++;
-                Thread.Sleep(100 - Instance.GameSpeed);
+                Thread.Sleep(200 - Instance.GameSpeed);
             }
         }
 
@@ -255,7 +274,7 @@ namespace AcademyInvaders.Core
             });
         }
 
-        public void HitCheck(IPlayer player, List<IEnemy> enemies, IPlayer opponent = null)
+        public void HitCheck(IPlayer player, List<IEnemy> enemies, IPlayer opponent = null, IBoss boss = null)
         {
             if (enemies != null)
             {
@@ -290,6 +309,17 @@ namespace AcademyInvaders.Core
                 {
                     player.Score++;
                     opponent.Health--;
+                }
+            }
+
+            if (boss != null)
+            {
+                if (player.ShootedBullets.Any(b =>
+                    b.ObjectPosition.X >= boss.ObjectPosition.X &&
+                    b.ObjectPosition.X <= boss.ObjectPosition.X + boss.ToString().Length - 1 ))
+                {
+                    player.Score++;
+                    boss.Health--;
                 }
             }
         }

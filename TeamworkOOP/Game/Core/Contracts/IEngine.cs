@@ -18,6 +18,6 @@ namespace AcademyInvaders.Core.Contracts
 
         void MirrorOpponent(IPlayer opponent);
 
-        void HitCheck(IPlayer player, List<IEnemy> enemies, IPlayer opponent = null);
+        void HitCheck(IPlayer player, List<IEnemy> enemies, IPlayer opponent = null, IBoss boss = null);
     }
 }

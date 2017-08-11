@@ -22,7 +22,7 @@ namespace AcademyInvaders.View
             Console.Write(obj);
         }
 
-        public static void PrintStats(IPlayer player1, IPlayer player2 = null)
+        public static void PrintStats(IPlayer player1, IPlayer player2 = null, IBoss boss = null)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(0, 0);
@@ -33,6 +33,13 @@ namespace AcademyInvaders.View
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.SetCursorPosition(Console.WindowWidth / 2 + 20, 0);
                 Console.WriteLine($"$:{player2.Score} H:{new string('+', player2.Health)}");
+            }
+
+            if (boss != null)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.SetCursorPosition(Console.WindowWidth / 2 + 20, 0);
+                Console.WriteLine($"BOSS H:{new string('+', boss.Health)}");
             }
         }
     }
