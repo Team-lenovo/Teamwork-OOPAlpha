@@ -18,8 +18,7 @@ namespace AcademyInvaders.Core
         private static readonly IEngine instance = new Engine();
         private List<object> gameObjects = new List<object>();
         private int gameSpeed;
-
-
+        
         public static IEngine Instance
         {
             get
