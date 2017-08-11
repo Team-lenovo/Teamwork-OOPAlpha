@@ -28,8 +28,6 @@ namespace AcademyInvaders.Core.Factories
             }
         }
 
-
-
         public IPlayer CreatePlayer(PlayerState state = PlayerState.Default, WeaponChoice weapon = WeaponChoice.Torpedo, ConsoleColor color = ConsoleColor.Cyan,
             Position playerPosition = null, int lives = 3, int health = 10, int score = 0)
         {
@@ -56,6 +54,19 @@ namespace AcademyInvaders.Core.Factories
         public IBullet CreateBullet(string playerName, Position currPlayerPosition, Size BulletSize)
         {
             return new Bullet(playerName, currPlayerPosition, BulletSize);
+        }
+
+        public IBoss CreateBoss(Position currBossPosition = null, int health = 10, Size? size = null, ConsoleColor color = ConsoleColor.DarkBlue, int randomX = 0)
+        {
+            if (currBossPosition==null)
+            {
+                currBossPosition = new Position(Console.WindowWidth / 2, 0);
+            }
+            if (size == null)
+            {
+                size = new Size(5, 5);
+            }
+            return new Boss(currBossPosition, health, size, color, randomX);
         }
 
         public IClient CreateInvadersClient()

@@ -5,7 +5,7 @@ using System;
 namespace AcademyInvaders.Models
 {
     [Serializable]
-    public class Enemy : GameObject, IMoveable, IPrintable, IShootable, ISizeable, IEnemy
+    public class Enemy : GameObject, IMoveable, IPrintable, ISizeable, IEnemy
     {
         private ConsoleColor color;
         private Position objectPosition;
@@ -60,11 +60,6 @@ namespace AcademyInvaders.Models
         {
 
             this.ObjectPosition.Y++;
-        }
-
-        public void Shoot()
-        {
-            throw new NotImplementedException();
         }
 
         void ISizeable.Size()

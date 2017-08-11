@@ -142,6 +142,7 @@ namespace AcademyInvaders.Core
                 // Game end -----------
                 if (offlinePlayer.Health == 0)
                 {
+                    Console.Clear();
                     GameStory.printGameOver();
                     break;
                 }

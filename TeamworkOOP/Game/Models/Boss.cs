@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AcademyInvaders.Models
 {
-    public class Boss : Enemy
+    public class Boss : Enemy, IBoss
     {
         private IList<IBullet> shootedBullets;
         
@@ -26,6 +26,11 @@ namespace AcademyInvaders.Models
             {
                 this.shootedBullets = value;
             }
+        }
+        
+        public void Shoot()
+        {
+            this.ShootedBullets.Add(new Bullet("Big Boss Bullet", this.Position, new Size(1,1), ConsoleColor.DarkBlue));
         }
     }
 }
