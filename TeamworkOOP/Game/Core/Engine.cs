@@ -251,12 +251,19 @@ namespace AcademyInvaders.Core
             try
             {
                 NetworkStream ns = client.Client.GetStream();
-                byte[] incommingBytes = new byte[12000];
-                ns.Read(incommingBytes, 0, 12000);
-                using (var ms = new MemoryStream(incommingBytes))
+                if (ns.DataAvailable || this.gameObjects.Count == 0)
                 {
-                    var formatter = new BinaryFormatter();
-                    this.gameObjects = (List<object>)formatter.Deserialize(ms);
+                    byte[] incommingBytes = new byte[12000];
+                    ns.Read(incommingBytes, 0, 12000);
+                    using (var ms = new MemoryStream(incommingBytes))
+                    {
+                        var formatter = new BinaryFormatter();
+                        this.gameObjects = (List<object>)formatter.Deserialize(ms);
+                    }
+                }
+                else
+                {
+                    return;
                 }
             }
             catch (IOException)
