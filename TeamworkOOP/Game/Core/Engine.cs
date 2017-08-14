@@ -62,7 +62,7 @@ namespace AcademyInvaders.Core
         public void Run()
         {
             Screen.SetScreenSize(41, 120);
-            playSound("menuMusic.wav");
+            PlaySound("../../Core/Resources/music/menuMusic.wav");
 
             while (true)
             {
@@ -109,7 +109,7 @@ namespace AcademyInvaders.Core
 
         public void PlayOffline(IPlayer offlinePlayer)
         {
-            playSound("singlePlayer.wav");
+            PlaySound("../../Core/Resources/music/singlePlayer.wav");
 
             List<IEnemy> enemies = new List<IEnemy>();
             IBoss boss = null;
@@ -133,7 +133,7 @@ namespace AcademyInvaders.Core
                     Instance.GameSpeed = 20;
                     boss = InvadersFactory.Instance.CreateBoss(null, 10, null, ConsoleColor.Red, randX);
                     boss.ObjectPosition.Y = 1;
-                    playSound("bossMusic.wav");
+                    PlaySound("../../Core/Resources/music/bossMusic.wav");
                 }
                 else if (counter < 1000 && counter % 10 == 0)
                 {
@@ -290,7 +290,7 @@ namespace AcademyInvaders.Core
             });
         }
 
-        static void playSound(string path)
+        static void PlaySound(string path)
         {
             SoundPlayer player = new SoundPlayer();
             player.SoundLocation = path;

@@ -85,6 +85,9 @@
     <Content Include="Core\Resources\level\00.introLevel.txt" />
     <Content Include="Core\Resources\level\01.firstLevelCompleted.txt" />
     <Content Include="Core\Resources\level\02.secondLevelCompleted.txt" />
+    <Content Include="Core\Resources\music\bossMusic.wav" />
+    <Content Include="Core\Resources\music\menuMusic.wav" />
+    <Content Include="Core\Resources\music\singlePlayer.wav" />
     <Content Include="Core\Resources\title.txt" />
     <Content Include="Core\Resources\title2.txt" />
     <Content Include="Core\Settings.txt" />
